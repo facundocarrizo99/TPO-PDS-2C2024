@@ -1,0 +1,1 @@
+Link de Lucid Diagrama de Clases: https://lucid.app/lucidchart/b9da0200-c3e6-4669-bf5e-a0159dfa1fc3/edit?viewport_loc=-3407%2C-1221%2C7354%2C3646%2C0_0&invitationId=inv_1f5d0bb5-7282-4143-a9a0-d630b6bd3f98
