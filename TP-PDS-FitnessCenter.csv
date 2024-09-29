@@ -1,0 +1,146 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Status,Text Area 1,Text Area 2,Text Area 3,Comments
+1,Document,,,,,,,,,Draft,TP-PDS-FitnessCenter,,,
+2,Page,,,,,,,,,,Page 1,,,
+3,Class,UML,2,,,,,,,,Socio,"​-fechaNacimiento: Date
+-sexo: Char
+-peso: Peso
+-altura: Integer
+-objetivo: Objetivo
+-estado: EstadoObjetivo
+-rutinaActual: Rutina
+-observers: List<IObserver>
+-historialEntrenamientos HistorialSocio
+-trofeos: List<Trofeo>","​+mostrarProgreso(): void
++comenzarEntrenamiento(): void
++cambiarObjetivo(objetivo): void
++obtenerRutina: Rutina
++agregar(observer)
++eliminar(observer)
++notificar()",
+4,Class,UML,2,,,,,,,,"<<abstract>>
+Obejtivo","​-minutosEntrenamientoMax: int
+-minutosEntrenamientoMin: int
+-nivelAreobicoMin: int
+-nivelAreobicoMax: int
+-nivelExigencia: Collection[Enum<NivelExigencia>]","​+obtenerPlan(): Rutina
++calcularPesoIdeal(unPeso, unSocio):  void
++crearRutina: void",
+5,Class,UML,2,,,,,,,,Rutina,"​-entrenamiento: Collection<Entrenamiento>
+-fechaInicio: Date
+-fechaFin: Date
+-objetivo: Objetivo","​+reforzar(peso)
++crearEntrenamiento(objetivo)",
+6,Class,UML,2,,,,,,,,BajarPeso,,obtenerPlan(): Rutina,
+7,Class,UML,2,,,,,,,,TonificarCuerpo,​-,obtenerPlan(): Rutina,
+8,Class,UML,2,,,,,,,,MantenerFigura,​-valorConfigurable: int,obtenerPlan(valorConfigurable): Rutina,
+9,Class,UML,2,,,,,,,,Ejercicio,"​-grupoMuscular: Enum<GrupoMuscular>
+-cantidadSeries: Integer
+-repeticiones: Integer
+-peso: Double
+-nivelAerobico: Array[1-10]
+-nivelExigencia: Enum<NivelExigencia>
+-videoIlustrativo: Video","​+compeltar(pesoUtilizado, repeticiones, series)",
+10,Class,UML,2,,,,,,,,"<<interface>>
+IObjetico",​+obtenerPlan(): void,,
+11,Class,UML,2,,,,,,,,Entrenamiento,"​-ejercicios: Collection<Ejercicio>
+-diaRutina: Date
+-duracionMin: Int
+-ejerciciosFinalizados: Collection<Ejercicio>","​+elegirEjercicio(objetivo)
++finalizarEntrenamiento(entrenamientoFinalizado): void",
+12,Class,UML,2,,,,,,,,"<<interface>>
+IEstadoObjetivo",​+completar(contexto: Socio): void,,
+13,Class,UML,2,,,,,,,,Peso,"​-pesoKg: Double
+-porcentajeGrasa: Double<0 y 1>
+-masaMuscularKg: Double
+-fecha: Date","​+pesarse(): peso Peso
+",
+14,Class,UML,2,,,,,,,,EnCurso,,​+completar(contexto: Socio): void,
+15,Class,UML,2,,,,,,,,Completado,,​+completar(contexto: Socio): void,
+16,Class,UML,2,,,,,,,,"<<Enumeration>>
+GrupoMuscular","Pecho
+Espalda
+Hombros
+Piernas
+Brazos",,
+17,Class,UML,2,,,,,,,,Usuario,"​-mail: String
+-clave: String
+-nombre: String
+-apellido: String",​+Auth(): void,
+18,Class,UML,2,,,,,,,,"<<interface>>
+IPesoAdapter",​+obtenerPesoDe(): Peso,,
+19,Class,UML,2,,,,,,,,PesoDeBalanzaGym,​-valor: BalanzaGym,​+operacion(),
+20,Class,UML,2,,,,,,,,BalanzaGym,,​+operacionReal(),
+21,Class,UML,2,,,,,,,,PesoDeBalanzaExterna,​-valor: BalanzaRandom,​+operacion(),
+22,Class,UML,2,,,,,,,,BalanzaRandom,,​+operacionReal(),
+23,Class,UML,2,,,,,,,,"<<Enumeration>>
+NivelExigencia","bajo
+medio
+alto",,
+24,Class,UML,2,,,,,,,,"<<interface>>
+IObserver",​+serNotificadoPor(observable),,
+25,Class,UML,2,,,,,,,,"<<interface>>
+IObservable","​+agregar(observer)
++eliminar(observer)
++notificar()",,
+26,Class,UML,2,,,,,,,,ObservadorPeso,,​+serNotificadoPor(observable),
+27,Class,UML,2,,,,,,,,HisorialSocio,"​-socio: Socio
+-entrenamientos:Colleciton<Entrenamiento>
+-pesos: Collection<Peso>",,
+28,Class,UML,2,,,,,,,,"<<Abstract>>
+Trofeo","​-nombre
+-notificador: INotificador","​+otorgarTrofeo(): Void
++notificar: void",
+29,Class,UML,2,,,,,,,,TrofeoDedicacion,,"​+otorgarTrofeo(): Void
++controlarEstadoObjetivo(): void",
+30,Class,UML,2,,,,,,,,TrofeoConstancia,,"​+otorgarTrofeo(): Void
++controlarTutina(): void",
+31,Class,UML,2,,,,,,,,TrofeoCreido,,"​+otorgarTrofeo(): Void
++controlarCantidadPedo(): void",
+32,Class,UML,2,,,,,,,,"<<interface>>
+INotificador",​+notificarTrofeo(),,
+33,Class,UML,2,,,,,,,,BaseDecorator,​-wrappee: INotificador,"​+BaseDecorator(INotificador)
++execute()",
+34,Class,UML,2,,,,,,,,NotificadorPush,,​+execute(),
+35,Class,UML,2,,,,,,,,"<<interface>>
+IAuth",​+Autenticarse(): Usuario,,
+36,Class,UML,2,,,,,,,,AutenticarseExterno,valor: AutenticarseReal,​+operacion(),
+37,Class,UML,2,,,,,,,,AutenticarseReal,,​+operacionReal(),
+38,Line,,2,,,10,4,None,None,,,,,
+39,Line,,2,,,14,15,None,Open Arrow,,,,,
+40,Line,,2,,,15,14,None,Open Arrow,,,,,
+41,Line,,2,,,14,12,None,None,,,,,
+42,Line,,2,,,15,12,None,None,,,,,
+43,Line,,2,,,3,12,None,Open Arrow,,,,,
+44,Line,,2,,,7,4,None,None,,,,,
+45,Line,,2,,,6,4,None,None,,,,,
+46,Line,,2,,,8,4,None,Generalization,,,,,
+47,Line,,2,,,4,3,None,Composition,,1,1,,
+48,Line,,2,,,11,5,None,Aggregation,,,,,
+49,Line,,2,,,9,11,None,Aggregation,,,,,
+50,Line,,2,,,19,20,None,Open Arrow,,,,,
+51,Line,,2,,,19,18,None,Generalization,,,,,
+52,Line,,2,,,21,22,None,Open Arrow,,,,,
+53,Line,,2,,,21,18,None,Generalization,,,,,
+54,Line,,2,,,13,18,None,Open Arrow,,,,,
+55,Line,,2,,,13,3,None,Equilateral Arrow,,,,,
+56,Line,,2,,,3,17,None,Generalization,,,,,
+57,Line,,2,,,5,3,None,Aggregation,,,,,
+58,Line,,2,,,3,25,None,Generalization,,,,,
+59,Line,,2,,,26,25,None,Open Arrow,,,,,
+60,Line,,2,,,26,5,None,Equilateral Arrow,,,,,
+61,Line,,2,,,26,24,None,Generalization,,,,,
+62,Line,,2,,,3,24,None,Open Arrow,,,,,
+63,Line,,2,,,11,27,None,Aggregation,,1,0..*,,
+64,Line,,2,,,27,3,None,Open Arrow,,,,,
+65,Line,,2,,,29,28,None,Generalization,,,,,
+66,Line,,2,,,30,28,None,Hollow Arrow,,,,,
+67,Line,,2,,,31,28,None,Generalization,,,,,
+68,Line,,2,,,15,29,None,None,,,,,
+69,Line,,2,,,28,3,None,Composition,,,,,
+70,Line,,2,,,33,34,Generalization,None,,,,,
+71,Line,,2,,,33,32,Aggregation,Open Arrow,,,,,
+72,Line,,2,,,28,32,None,Open Arrow,,,,,
+73,Line,,2,,,4,5,Composition,None,,,,,
+74,Line,,2,,,36,37,None,Open Arrow,,,,,
+75,Line,,2,,,36,35,None,Generalization,,,,,
+76,Line,,2,,,17,35,None,Open Arrow,,,,,
