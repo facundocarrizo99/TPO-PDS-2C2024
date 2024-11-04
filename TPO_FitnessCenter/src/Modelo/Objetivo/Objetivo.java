@@ -8,17 +8,21 @@ public abstract class Objetivo implements IObjetivo {
     private int minutosEntreMin;
     private int nivelAerobicoMin;
     private int nivelAerobicoMax;
+    private Rutina rutina;
+    private EstadoObjetivo estado;
+    
 
     public Objetivo(int minutosEntreMax, int minutosEntreMin, int nivelAerobicoMin, int nivelAerobicoMax) {
         this.minutosEntreMax = minutosEntreMax;
         this.minutosEntreMin = minutosEntreMin;
         this.nivelAerobicoMin = nivelAerobicoMin;
         this.nivelAerobicoMax = nivelAerobicoMax;
+        this.estado = EstadoObjetivo.ENCURSO;
     }
 
     @Override
     public Rutina obtenerPlan() {
-        return null; //Este deberia hacer algo aca??? o se implementa en la herencia?
+        return this.rutina; //Este deberia hacer algo aca??? o se implementa en la herencia?
                     // y si es asi comosabemos que no tomara esta y no la de la herencia(?)
     }
 
