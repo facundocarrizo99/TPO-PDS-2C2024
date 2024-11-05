@@ -1,25 +1,41 @@
 package Modelo;
 
 import Modelo.Objetivo.Objetivo;
+import Modelo.Peso.HistorialPeso;
 import Modelo.Peso.Peso;
 import java.util.Date;
 
-public class Socio inherits Usuario {
+public class Socio {
+	private String mail;
+    private String clave;
+    private String nombre;
+    private String apellido;
+    private int edad;
     private Date fechaNacimiento;
-    private char sexo;
-    private Peso peso;
+    private String sexo;
+    private HistorialPeso pesos;
     private double altura;
     private Objetivo objetivo;
+    private int ID;
+    private boolean baja;
 
-    public Socio(Date fechaNacimiento, char sexo, Peso peso, double altura, Objetivo objetivo) {
-        this.fechaNacimiento = fechaNacimiento;
-        this.sexo = sexo;
-        this.peso = peso;
-        this.altura = altura;
-        this.objetivo = objetivo;
-    }
+    
 
-    public void cambiarObjetivo(Objetivo objetivo) {
+	public Socio(String mail, String clave, String nombre, String apellido, int edad, Date fechaNacimiento, String sexo, double altura, 
+			int ID) {
+		this.mail = mail;
+		this.clave = clave;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.edad = edad;
+		this.fechaNacimiento = fechaNacimiento;
+		this.sexo = sexo;
+		this.altura = altura;
+		this.ID = ID;
+		this.baja = false;
+	}
+
+	public void cambiarObjetivo(Objetivo objetivo) {
         this.objetivo = objetivo;
     }
 
@@ -31,23 +47,25 @@ public class Socio inherits Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public char getSexo() {
-        return sexo;
-    }
+    
 
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
-    }
+    public String getSexo() {
+		return sexo;
+	}
 
-    public Peso getPeso() {
-        return peso;
-    }
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
 
-    public void setPeso(Peso peso) {
-        this.peso = peso;
-    }
+	public HistorialPeso getPesos() {
+		return pesos;
+	}
 
-    public double getAltura() {
+	public void setPesos(HistorialPeso pesos) {
+		this.pesos = pesos;
+	}
+
+	public double getAltura() {
         return altura;
     }
 
@@ -62,4 +80,54 @@ public class Socio inherits Usuario {
     public void setObjetivo(Objetivo objetivo) {
         this.objetivo = objetivo;
     }
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public boolean getBaja() {
+		return baja;
+	}
+
+	public void setBaja(boolean baja) {
+		this.baja = baja;
+	}
+    
+	
 }

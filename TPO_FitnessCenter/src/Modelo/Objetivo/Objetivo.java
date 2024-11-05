@@ -3,13 +3,13 @@ package Modelo.Objetivo;
 import Modelo.Rutina.Rutina;
 import Modelo.Socio;
 
-public abstract class Objetivo implements IObjetivo {
+public abstract class Objetivo {
     private int minutosEntreMax;
     private int minutosEntreMin;
     private int nivelAerobicoMin;
     private int nivelAerobicoMax;
     private Rutina rutina;
-    private EstadoObjetivo estado;
+    private IEstadoObjetivo estado;
     
 
     public Objetivo(int minutosEntreMax, int minutosEntreMin, int nivelAerobicoMin, int nivelAerobicoMax) {
@@ -17,14 +17,9 @@ public abstract class Objetivo implements IObjetivo {
         this.minutosEntreMin = minutosEntreMin;
         this.nivelAerobicoMin = nivelAerobicoMin;
         this.nivelAerobicoMax = nivelAerobicoMax;
-        this.estado = EstadoObjetivo.ENCURSO;
     }
 
-    @Override
-    public Rutina obtenerPlan() {
-        return this.rutina; //Este deberia hacer algo aca??? o se implementa en la herencia?
-                    // y si es asi comosabemos que no tomara esta y no la de la herencia(?)
-    }
+    public abstract Rutina obtenerPlan();
 
     public double calcularPesoIdeal(Socio socio) {
         //ToDo: implementar calcularPesoIdeal en Objetivo
@@ -34,5 +29,9 @@ public abstract class Objetivo implements IObjetivo {
     public Rutina crearRutina (){
         //ToDo: implementar crearRutina en Objetivo
         return null;
+    }
+    
+    public void cambiarEstado(IEstadoObjetivo estado) {
+    	this.estado = estado;
     }
 }

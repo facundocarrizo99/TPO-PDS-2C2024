@@ -1,5 +1,6 @@
 package Modelo.Objetivo;
 
+import Modelo.Socio;
 import Modelo.Rutina.Rutina;
 
 public class BajarPeso extends Objetivo{
