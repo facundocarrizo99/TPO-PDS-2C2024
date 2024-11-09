@@ -31,6 +31,9 @@ public class BD {
 	}
 	
 	public Socio getSocioByID(int ID) {
+		if (ID > socios.size()) {
+			return null; //validacion de que el ID sea valido
+		}
 		Socio socio = socios.get(ID-1);
 		if(!socio.getBaja()) {
 			return socio;

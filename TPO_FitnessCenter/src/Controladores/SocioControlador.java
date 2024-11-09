@@ -8,13 +8,17 @@ import java.util.Scanner;
 import DTO.SocioDTO;
 import Modelo.Socio;
 import baseDatos.BD;
+import Modelo.Objetivo.*;
+import Enum.NivelExigencia;
 
 public class SocioControlador {
 	private static SocioControlador instancia;
-	private BD bd = BD.getInstancia();
-	private Scanner lector = new Scanner(System.in);
+	private BD bd;
+	private Scanner lector;
 	
 	private SocioControlador() {
+		lector = new Scanner(System.in);
+		bd = BD.getInstancia();
 	}
 	
 	public static SocioControlador getInstancia() {
@@ -33,14 +37,30 @@ public class SocioControlador {
 	public void editarSocio(SocioDTO socio) {
 		Socio editado = bd.getSocioByID(Integer.valueOf(socio.getID()));
 		Socio datosNuevos = toModel(socio);
-		editado.setMail(datosNuevos.getMail());
-		editado.setClave(datosNuevos.getClave());
-		editado.setNombre(datosNuevos.getNombre());
-		editado.setApellido(datosNuevos.getApellido());
-		editado.setEdad(datosNuevos.getEdad());
-		editado.setFechaNacimiento(datosNuevos.getFechaNacimiento());
-		editado.setSexo(datosNuevos.getSexo());
-		editado.setAltura(datosNuevos.getAltura());
+		if(socio.getMail() != "") {
+			editado.setMail(datosNuevos.getMail());
+		}
+		if (socio.getClave() != "") {
+			editado.setClave(datosNuevos.getClave());
+		}
+		if (socio.getNombre() != "") {
+			editado.setNombre(datosNuevos.getNombre());
+		}
+		if (socio.getApellido() != "") {
+			editado.setApellido(datosNuevos.getApellido());
+		}
+		if (socio.getEdad() != "0") {
+			editado.setEdad(datosNuevos.getEdad());
+		}
+		if (socio.getFechaNacimiento() != "0") {
+			editado.setFechaNacimiento(datosNuevos.getFechaNacimiento());
+		}
+		if (socio.getSexo() != "") {
+			editado.setSexo(datosNuevos.getSexo());
+		}
+		if (socio.getAltura() != "0") {
+			editado.setAltura(datosNuevos.getAltura());
+		}
 	}
 	
 	public boolean eliminarSocio(SocioDTO socio) {
@@ -52,10 +72,12 @@ public class SocioControlador {
 	public void pesarse(SocioDTO socioDTO) {
 		int socioID = Integer.valueOf(socioDTO.getID());
 		Socio socio = bd.getSocioByID(socioID);
-		
+		socio.pesarse();
 	}
 	
-	public void elegirObjetivo() {
+	public void elegirObjetivo(SocioDTO socioDTO) {
+		int socioID = Integer.valueOf(socioDTO.getID());
+		Socio socio = bd.getSocioByID(socioID);
 		System.out.print("\n\nElija su Objetivo, ingrese:\n1.- Tonificar Cuerpo\n2.- Bajar de Peso\n3.- Mantener Figura\n");
 		int elegido = lector.nextInt();
 		while ((elegido != 1) && (elegido != 2) && (elegido != 3)) {
@@ -63,9 +85,41 @@ public class SocioControlador {
 			System.out.print("\nElija su Objetivo, ingrese:\n1.- Tonificar Cuerpo\n2.- Bajar de Peso\n3.- Mantener Figura\n");
 			elegido = lector.nextInt();
 		}
-		
-		
+		// area de factory de objetivo //
+		Objetivo obj;
+		if (elegido == 1) {
+			double masaMuscularIdeal;
+			double porcentajeGrasaIdeal;
+			if (socio.getSexo() == "masculino") {
+				masaMuscularIdeal = 0.4;
+				porcentajeGrasaIdeal = 0.17;
+			}else {
+				masaMuscularIdeal = 0.3;
+				porcentajeGrasaIdeal = 0.24;
+			}
+			obj = new TonificarCuerpo(150, 120, 0, 4, NivelExigencia.ALTO, masaMuscularIdeal, porcentajeGrasaIdeal);
+		}else if (elegido == 2) {
+			double pesoIdeal;
+			if (socio.getSexo() == "masculino") {
+				pesoIdeal = socio.getAltura() - 100;
+			}else {
+				pesoIdeal = socio.getAltura() - 104;
+			}
+			obj = new BajarPeso(90, 60, 3, 10, null, pesoIdeal);
+		}else {
+			System.out.print("\nCuento te gustaria que pueda oscilar tu peso ideal? (Numero Entero positivo, menor a 20)\n");
+			int valorConfigurable = lector.nextInt();
+			while (valorConfigurable < 0 || valorConfigurable > 20) {
+				System.out.print("### Error dato incorrecto ###");
+				System.out.print("\nCuento te gustaria que pueda oscilar tu peso ideal? (Numero Entero positivo, menor a 20)\n");
+				valorConfigurable = lector.nextInt();
+			}
+			obj = new MantenerFigura(45, 80, 2, 4, NivelExigencia.BAJO, valorConfigurable);
+		}
+		socio.setObjetivo(obj);
 	}
+	
+	
 	
 	private Socio toModel(SocioDTO socio) {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -78,7 +132,6 @@ public class SocioControlador {
             System.out.println("Error al convertir la fecha: " + e.getMessage());
         }
         
-        BD bd = BD.getInstancia();
         int ID = bd.getsizeSocios() + 1;
 
 		Socio nuevoSocio = new Socio(
