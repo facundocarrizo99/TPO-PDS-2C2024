@@ -49,16 +49,16 @@ public class SocioControlador {
 		if (socio.getApellido() != "") {
 			editado.setApellido(datosNuevos.getApellido());
 		}
-		if (socio.getEdad() != "") {
+		if (socio.getEdad() != "0") {
 			editado.setEdad(datosNuevos.getEdad());
 		}
-		if (socio.getFechaNacimiento() != "") {
+		if (socio.getFechaNacimiento() != "0") {
 			editado.setFechaNacimiento(datosNuevos.getFechaNacimiento());
 		}
 		if (socio.getSexo() != "") {
 			editado.setSexo(datosNuevos.getSexo());
 		}
-		if (socio.getAltura() != "") {
+		if (socio.getAltura() != "0") {
 			editado.setAltura(datosNuevos.getAltura());
 		}
 	}
