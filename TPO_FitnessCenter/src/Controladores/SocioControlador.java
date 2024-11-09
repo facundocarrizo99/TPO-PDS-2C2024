@@ -8,7 +8,10 @@ import java.util.Scanner;
 import DTO.SocioDTO;
 import Modelo.Socio;
 import baseDatos.BD;
-import Modelo.Objetivo.*;
+import Modelo.Objetivo.Objetivo;
+import Modelo.Objetivo.BajarPeso;
+import Modelo.Objetivo.MantenerFigura;
+import Modelo.Objetivo.TonificarCuerpo;
 import Enum.NivelExigencia;
 
 public class SocioControlador {
