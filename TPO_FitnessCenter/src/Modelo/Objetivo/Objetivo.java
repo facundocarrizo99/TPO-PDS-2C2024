@@ -17,7 +17,6 @@ public abstract class Objetivo {
 
     public Objetivo(int minutosEntreMax, int minutosEntreMin, int nivelAerobicoMin, int nivelAerobicoMax,
 			NivelExigencia nivelExigencia) {
-		super();
 		this.minutosEntreMax = minutosEntreMax;
 		this.minutosEntreMin = minutosEntreMin;
 		this.nivelAerobicoMin = nivelAerobicoMin;
@@ -26,16 +25,8 @@ public abstract class Objetivo {
 		estadoObjetivo = false;
 	}
 
-	public abstract Rutina obtenerPlan();
+	public abstract Rutina obtenerPlan();	 //se supone que este es el que crea la rutina 
+											//por eso se implementa en la herencia
 
-    public double calcularPesoIdeal(Socio socio) {
-        //ToDo: implementar calcularPesoIdeal en Objetivo
-        return Double.parseDouble(null);
-    }
-
-    public Rutina crearRutina (){
-        //ToDo: implementar crearRutina en Objetivo
-        return null;
-    }
     
 }
