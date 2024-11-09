@@ -52,6 +52,11 @@ public class BD {
 	}
 	//Metodo de ejecicios
 	
+	public void eliminarEjercicio(int ID) {
+		Ejercicio ejercicio = ejercicios.get(ID-1);
+		ejercicio.setBaja(true);
+	}
+	
 	public void agregarEjercicio(Ejercicio ejercicio) {
 		ejercicios.add(ejercicio);
 	}

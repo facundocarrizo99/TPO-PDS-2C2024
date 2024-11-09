@@ -22,6 +22,9 @@ public class EjercicioDTO {
 		this.videoIlustrativo = videoIlustrativo;
 		this.ID= ID;
 	}
+	public EjercicioDTO(String ID) {
+		this.ID = ID;
+	}
 	
 	public String getDescripcion() {
 		return descripcion;

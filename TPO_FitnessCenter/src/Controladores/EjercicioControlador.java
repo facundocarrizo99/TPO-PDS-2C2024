@@ -59,9 +59,11 @@ public class EjercicioControlador {
 			ejercicioBaseDeDatos.setVideoIlustrativo(ejercicioModificar.getLinkVideo());
 			
 		}
-
-		
-	}
+		}
+	public void eliminarEjercicio(EjercicioDTO ejercicioDTO) {
+		bd.eliminarEjercicio(Integer.valueOf(ejercicioDTO.getID()));
+		}
+	
 	
 	
 	public Ejercicio toModel(EjercicioDTO ejercicioDTO) {
