@@ -1,9 +1,10 @@
 package Modelo;
 
 import Modelo.Objetivo.Objetivo;
-import Modelo.Peso.HistorialPeso;
 import Modelo.Peso.Peso;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Socio {
 	private String mail;
@@ -13,7 +14,7 @@ public class Socio {
     private int edad;
     private Date fechaNacimiento;
     private String sexo;
-    private HistorialPeso pesos;
+    private List<Peso> pesos;
     private double altura;
     private Objetivo objetivo;
     private int ID;
@@ -33,6 +34,7 @@ public class Socio {
 		this.altura = altura;
 		this.ID = ID;
 		this.baja = false;
+		pesos = new ArrayList<>();
 	}
 
 	public void cambiarObjetivo(Objetivo objetivo) {
@@ -55,14 +57,6 @@ public class Socio {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
-	}
-
-	public HistorialPeso getPesos() {
-		return pesos;
-	}
-
-	public void setPesos(HistorialPeso pesos) {
-		this.pesos = pesos;
 	}
 
 	public double getAltura() {
@@ -127,6 +121,22 @@ public class Socio {
 
 	public void setBaja(boolean baja) {
 		this.baja = baja;
+	}
+
+	public List<Peso> getPesos() {
+		return pesos;
+	}
+
+	public void setPesos(List<Peso> pesos) {
+		this.pesos = pesos;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
     
 	

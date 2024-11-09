@@ -9,7 +9,7 @@ public abstract class Objetivo {
     private int nivelAerobicoMin;
     private int nivelAerobicoMax;
     private Rutina rutina;
-    private IEstadoObjetivo estado;
+    private boolean estadoObjetivo; //False significa en curso
     
 
     public Objetivo(int minutosEntreMax, int minutosEntreMin, int nivelAerobicoMin, int nivelAerobicoMax) {
@@ -17,6 +17,7 @@ public abstract class Objetivo {
         this.minutosEntreMin = minutosEntreMin;
         this.nivelAerobicoMin = nivelAerobicoMin;
         this.nivelAerobicoMax = nivelAerobicoMax;
+        estadoObjetivo = false;
     }
 
     public abstract Rutina obtenerPlan();
@@ -31,7 +32,4 @@ public abstract class Objetivo {
         return null;
     }
     
-    public void cambiarEstado(IEstadoObjetivo estado) {
-    	this.estado = estado;
-    }
 }
