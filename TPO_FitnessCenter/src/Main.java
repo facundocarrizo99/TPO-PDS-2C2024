@@ -1,4 +1,6 @@
+import Controladores.EjercicioControlador;
 import Controladores.SocioControlador;
+import DTO.EjercicioDTO;
 import DTO.SocioDTO;
 import baseDatos.BD;
 
@@ -15,6 +17,15 @@ public class Main {
         		"1.70",
         		""
         		);
+        EjercicioDTO ejercicio = new EjercicioDTO(
+        		"Salta Cuerda", 
+        		"PECHO",
+        		"2",   
+        		"10",	
+        		"10.00",	
+        		"1",
+        		"BAJA",
+        		"VIDEO.MP4");
         
         SocioControlador SC = SocioControlador.getInstancia();
         
@@ -37,5 +48,13 @@ public class Main {
         System.out.println("-----");
         bd.mostrarSocioPrueba();
         
+     EjercicioControlador ejercicioControlador = EjercicioControlador.getIntancia();
+     ejercicioControlador.crearEjercicio(ejercicio);
+     
+     bd.mostrarEjercicioPrueba();
+        
     }
+    
+    
+  
 }

@@ -26,6 +26,7 @@ public class SocioControlador {
 		Socio nuevoSocio = toModel(socio);
 		bd.agregarSocio(nuevoSocio);
 		return true;
+		//TODO falta logica de validacion 
 	}
 	
 	public void editarSocio(SocioDTO socio) {

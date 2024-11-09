@@ -3,13 +3,16 @@ package baseDatos;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Socio;
+import Modelo.Rutina.Ejercicio;
 
 public class BD {
 	private List<Socio> socios;
+	private List<Ejercicio> ejercicios;
 	private static BD instancia;
 	
 	private BD() {
 		socios = new ArrayList<>();
+		ejercicios= new ArrayList<>();
 	}
 	
 	public static BD getInstancia() {
@@ -43,5 +46,14 @@ public class BD {
 	public void mostrarSocioPrueba() {
 		System.out.println(socios.get(0).getFechaNacimiento());
 		System.out.println(socios.get(0).getNombre());
+	}
+	//Metodo de ejecicios
+	
+	public void agregarEjercicio(Ejercicio ejercicio) {
+		ejercicios.add(ejercicio);
+	}
+	
+	public void mostrarEjercicioPrueba() {
+		System.out.println(ejercicios.get(0).getDescripcion());
 	}
 }
