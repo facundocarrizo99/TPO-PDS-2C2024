@@ -64,7 +64,7 @@ public class EjercicioControlador {
 		bd.eliminarEjercicio(Integer.valueOf(ejercicioDTO.getID()));
 		}
 	
-	
+	// ejemplo para el commit //
 	
 	public Ejercicio toModel(EjercicioDTO ejercicioDTO) {
 		GrupoMuscular grupoMuscular;
