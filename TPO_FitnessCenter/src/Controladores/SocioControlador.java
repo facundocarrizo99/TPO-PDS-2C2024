@@ -51,7 +51,6 @@ public class SocioControlador {
 		int socioID = Integer.valueOf(socioDTO.getID());
 		Socio socio = bd.getSocioByID(socioID);
 		
-		
 	}
 	
 	private Socio toModel(SocioDTO socio) {
