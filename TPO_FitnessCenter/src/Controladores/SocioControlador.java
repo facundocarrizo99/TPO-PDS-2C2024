@@ -53,6 +53,10 @@ public class SocioControlador {
 		
 	}
 	
+	public void elegirObjetivo() {
+		
+	}
+	
 	private Socio toModel(SocioDTO socio) {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         
