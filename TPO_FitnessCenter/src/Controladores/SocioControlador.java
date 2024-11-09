@@ -42,14 +42,16 @@ public class SocioControlador {
 	}
 	
 	public boolean eliminarSocio(SocioDTO socio) {
-		Socio socioBorrar = bd.getSocioByID(Integer.valueOf(socio.getID()));
-		
-		return true;
-	}
-	
-	public void pesarse(SocioDTO socio) {
 		int socioID = Integer.valueOf(socio.getID());
 		bd.eliminarSocio(socioID);
+		return true;//TODO analizar si es necesario que devuelva un booleano para la entrega
+	}
+	
+	public void pesarse(SocioDTO socioDTO) {
+		int socioID = Integer.valueOf(socioDTO.getID());
+		Socio socio = bd.getSocioByID(socioID);
+		
+		
 	}
 	
 	private Socio toModel(SocioDTO socio) {
