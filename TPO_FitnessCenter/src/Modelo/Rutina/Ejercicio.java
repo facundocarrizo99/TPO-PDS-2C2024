@@ -4,6 +4,7 @@ import Enum.GrupoMuscular;
 import Enum.NivelExigencia;
 
 public class Ejercicio {
+	private int ID;
 	private String descripcion;
     private GrupoMuscular grupoMuscular;
     private int cantidadSeries;
@@ -11,13 +12,15 @@ public class Ejercicio {
     private double peso;
     private int nivelAerobico;
     private NivelExigencia nivelExigencia;
-    private String linkVideo;
+    private String videoIlustrativo;
+    private boolean baja;
+    
     
     public void completar(double pesoUtilizado, int repeticiones, int series){
         
     }
-	public Ejercicio(String descripcion, GrupoMuscular grupoMuscular, int cantidadSeries, int repeticiones, double peso, int nivelAerobico,
-			NivelExigencia nivelExigencia, String linkVideo) {
+	public Ejercicio(int ID, String descripcion, GrupoMuscular grupoMuscular, int cantidadSeries, int repeticiones, double peso, int nivelAerobico,
+			NivelExigencia nivelExigencia, String videoIlustrativo) {
 		this.descripcion= descripcion;
 		this.grupoMuscular = grupoMuscular;
 		this.cantidadSeries = cantidadSeries;
@@ -25,7 +28,9 @@ public class Ejercicio {
 		this.peso = peso;
 		this.nivelAerobico = nivelAerobico;
 		this.nivelExigencia = nivelExigencia;
-		this.linkVideo= linkVideo;
+		this.videoIlustrativo= videoIlustrativo;
+		this.ID= ID;
+		this.baja = false;
 	}
 	
 	public String getDescripcion() {
@@ -71,11 +76,22 @@ public class Ejercicio {
 		this.nivelExigencia = nivelExigencia;
 	}
 	public String getLinkVideo() {
-		return linkVideo;
+		return videoIlustrativo;
 	}
-	public void setLinkVideo(String linkVideo) {
-		this.linkVideo = linkVideo;
+	public void setVideoIlustrativo(String linkVideo) {
+		this.videoIlustrativo = linkVideo;
 	}
+	public int getID() {
+		return ID;
+	}
+	public boolean getBaja() {
+		return baja;
+	}
+	public void setBaja(boolean baja) {
+		this.baja = baja;
+	}
+	
+	
 	
 	
 }

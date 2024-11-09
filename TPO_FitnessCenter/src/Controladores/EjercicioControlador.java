@@ -24,9 +24,50 @@ public class EjercicioControlador {
 		bd.agregarEjercicio(ejercicioNuevo);
 		
 	}
+	public void modificarEjercicio(EjercicioDTO ejercicioDTO) {
+		Ejercicio ejercicioModificar = toModel(ejercicioDTO);
+		Ejercicio ejercicioBaseDeDatos = bd.getEjercicioByID(Integer.parseInt(ejercicioDTO.getID()));
+		
+		if(ejercicioDTO.getDescripcion()!="0") {
+			ejercicioBaseDeDatos.setDescripcion(ejercicioModificar.getDescripcion());
+			}
+		if(ejercicioDTO.getGrupoMuscular()!="0") {
+			ejercicioBaseDeDatos.setGrupoMuscular(ejercicioModificar.getGrupoMuscular());
+			
+		}
+		if(ejercicioDTO.getCantidadSerie()!="0") {
+			ejercicioBaseDeDatos.setCantidadSeries(ejercicioModificar.getCantidadSeries());
+			
+		}
+		if(ejercicioDTO.getRepeticiones()!="0") {
+			ejercicioBaseDeDatos.setRepeticiones(ejercicioModificar.getRepeticiones());
+			
+		}
+		if(ejercicioDTO.getPeso()!="0") {
+			ejercicioBaseDeDatos.setPeso(ejercicioModificar.getPeso());
+			
+		}
+		if(ejercicioDTO.getNivelAerobico()!="0") {
+			ejercicioBaseDeDatos.setNivelAerobico(ejercicioModificar.getNivelAerobico());
+			
+		}
+		if(ejercicioDTO.getNivelExigencia()!="0") {
+			ejercicioBaseDeDatos.setNivelExigencia(ejercicioModificar.getNivelExigencia());
+			
+		}
+		if(ejercicioDTO.getVideoIlustrativo()!="0") {
+			ejercicioBaseDeDatos.setVideoIlustrativo(ejercicioModificar.getLinkVideo());
+			
+		}
+
+		
+	}
+	
+	
 	public Ejercicio toModel(EjercicioDTO ejercicioDTO) {
 		GrupoMuscular grupoMuscular;
 		NivelExigencia nivelExigencia;
+		int ID = bd.getSizeEjercicios()+1;
 		
 		
 		switch (ejercicioDTO.getGrupoMuscular()) {
@@ -61,6 +102,7 @@ public class EjercicioControlador {
 	}
 		
 		Ejercicio ejercicio= new Ejercicio(
+				ID,
 				ejercicioDTO.getDescripcion(),
 				grupoMuscular,
 				Integer.parseInt(ejercicioDTO.getCantidadSerie()),

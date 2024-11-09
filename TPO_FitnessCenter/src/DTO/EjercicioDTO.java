@@ -1,6 +1,7 @@
 package DTO;
 
 public class EjercicioDTO {
+	private String ID;
 	private String descripcion;
 	private String grupoMuscular;
 	private String cantidadSerie;
@@ -9,7 +10,7 @@ public class EjercicioDTO {
 	private String nivelAerobico;
 	private String NivelExigencia;
 	private String videoIlustrativo;
-	public EjercicioDTO(String descripcion,String grupoMuscular, String cantidadSerie, String repeticiones, String peso,
+	public EjercicioDTO(String ID,String descripcion,String grupoMuscular, String cantidadSerie, String repeticiones, String peso,
 			String nivelAerobico, String nivelExigencia, String videoIlustrativo) {
 		this.descripcion= descripcion;
 		this.grupoMuscular = grupoMuscular;
@@ -19,6 +20,7 @@ public class EjercicioDTO {
 		this.nivelAerobico = nivelAerobico;
 		this.NivelExigencia = nivelExigencia;
 		this.videoIlustrativo = videoIlustrativo;
+		this.ID= ID;
 	}
 	
 	public String getDescripcion() {
@@ -71,6 +73,11 @@ public class EjercicioDTO {
 	public void setVideoIlustrativo(String videoIlustrativo) {
 		this.videoIlustrativo = videoIlustrativo;
 	}
+
+	public String getID() {
+		return ID;
+	}
+	
 	
 	
 	

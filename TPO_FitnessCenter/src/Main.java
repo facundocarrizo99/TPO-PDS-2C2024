@@ -19,6 +19,7 @@ public class Main {
         		""
         		);
         EjercicioDTO ejercicio = new EjercicioDTO(
+        		"1",
         		"Salta Cuerda", 
         		"PECHO",
         		"2",   
@@ -27,6 +28,17 @@ public class Main {
         		"1",
         		"BAJA",
         		"VIDEO.MP4");
+        EjercicioDTO ejercicio1 = new EjercicioDTO(
+        		"1",
+        		"Descripcion Cambiada", 
+        		"PECHO",
+        		"0",   
+        		"10",	
+        		"10.00",	
+        		"1",
+        		"BAJA",
+        		"VIDEO.MP4");
+      
         
         SocioControlador SC = SocioControlador.getInstancia();
         
@@ -53,9 +65,8 @@ public class Main {
      ejercicioControlador.crearEjercicio(ejercicio);
      
      bd.mostrarEjercicioPrueba();
+     ejercicioControlador.modificarEjercicio(ejercicio1);
+     bd.mostrarEjercicioPrueba();
         
     }
-    
-    
-  
-}
+  }

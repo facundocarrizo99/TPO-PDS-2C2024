@@ -54,6 +54,19 @@ public class BD {
 	}
 	
 	public void mostrarEjercicioPrueba() {
-		System.out.println(ejercicios.get(0).getDescripcion());
+		System.out.println(ejercicios.get(0).getDescripcion()+ ejercicios.get(0).getCantidadSeries());
+	}
+	public int getSizeEjercicios() {
+		return ejercicios.size();
+		
+	}
+	public Ejercicio getEjercicioByID(int ID) {
+		if(ID>ejercicios.size()) {
+			return null;
+		}
+		if(!ejercicios.get(ID-1).getBaja()) {
+			return ejercicios.get(ID-1);
+		}
+		return null;
 	}
 }
