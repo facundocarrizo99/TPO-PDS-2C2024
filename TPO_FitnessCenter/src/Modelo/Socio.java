@@ -1,6 +1,7 @@
 package Modelo;
 
 import Modelo.Objetivo.Objetivo;
+import Modelo.Peso.IPesoAdapter;
 import Modelo.Peso.Peso;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,13 +16,18 @@ public class Socio {
     private Date fechaNacimiento;
     private String sexo;
     private List<Peso> pesos;
-    private double altura;
+    private double alturaCM;
     private Objetivo objetivo;
     private int ID;
     private boolean baja;
+    private IPesoAdapter balanza;
 
+    public void pesarse() {
+    	Peso nuevoPeso = balanza.obtenerPeso();
+    	this.pesos.add(nuevoPeso);
+    }
     
-
+    // Constructor, getter y setter //
 	public Socio(String mail, String clave, String nombre, String apellido, int edad, Date fechaNacimiento, String sexo, double altura, 
 			int ID) {
 		this.mail = mail;
@@ -31,7 +37,7 @@ public class Socio {
 		this.edad = edad;
 		this.fechaNacimiento = fechaNacimiento;
 		this.sexo = sexo;
-		this.altura = altura;
+		this.alturaCM = altura;
 		this.ID = ID;
 		this.baja = false;
 		pesos = new ArrayList<>();
@@ -49,8 +55,6 @@ public class Socio {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    
-
     public String getSexo() {
 		return sexo;
 	}
@@ -60,11 +64,11 @@ public class Socio {
 	}
 
 	public double getAltura() {
-        return altura;
+        return alturaCM;
     }
 
     public void setAltura(double altura) {
-        this.altura = altura;
+        this.alturaCM = altura;
     }
 
     public Objetivo getObjetivo() {
