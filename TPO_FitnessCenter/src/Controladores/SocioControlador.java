@@ -10,6 +10,7 @@ import baseDatos.BD;
 
 public class SocioControlador {
 	private static SocioControlador instancia;
+	private BD bd = BD.getInstancia();
 	
 	private SocioControlador() {
 	}
@@ -23,13 +24,11 @@ public class SocioControlador {
 	
 	public boolean registrarSocio(SocioDTO socio) {
 		Socio nuevoSocio = toModel(socio);
-		BD bd = BD.getInstancia();
 		bd.agregarSocio(nuevoSocio);
 		return true;
 	}
 	
 	public void editarSocio(SocioDTO socio) {
-		BD bd = BD.getInstancia();
 		Socio editado = bd.getSocioByID(Integer.valueOf(socio.getID()));
 		Socio datosNuevos = toModel(socio);
 		editado.setMail(datosNuevos.getMail());
@@ -43,9 +42,14 @@ public class SocioControlador {
 	}
 	
 	public boolean eliminarSocio(SocioDTO socio) {
-		BD bd = BD.getInstancia();
 		Socio socioBorrar = bd.getSocioByID(Integer.valueOf(socio.getID()));
+		
 		return true;
+	}
+	
+	public void pesarse(SocioDTO socio) {
+		int socioID = Integer.valueOf(socio.getID());
+		bd.eliminarSocio(socioID);
 	}
 	
 	private Socio toModel(SocioDTO socio) {
@@ -55,7 +59,6 @@ public class SocioControlador {
         
         try {
         	fecha = formato.parse(socio.getFechaNacimiento());
-            //System.out.println("Fecha convertida: " + fecha);
         } catch (ParseException e) {
             System.out.println("Error al convertir la fecha: " + e.getMessage());
         }

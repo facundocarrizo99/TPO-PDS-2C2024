@@ -19,8 +19,6 @@ public class BD {
 		return instancia;
 	}
 	
-	
-	
 	public void agregarSocio(Socio socio) {
 		socios.add(socio);
 	}
@@ -35,6 +33,11 @@ public class BD {
 			return socio;
 		}
 		return null;
+	}
+	
+	public void eliminarSocio(int ID) {
+		Socio socio = socios.get(ID-1);
+		socio.setBaja(true);
 	}
 	
 	public void mostrarSocioPrueba() {
