@@ -3,6 +3,7 @@ package Controladores;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 import DTO.SocioDTO;
 import Modelo.Socio;
@@ -11,6 +12,7 @@ import baseDatos.BD;
 public class SocioControlador {
 	private static SocioControlador instancia;
 	private BD bd = BD.getInstancia();
+	private Scanner lector = new Scanner(System.in);
 	
 	private SocioControlador() {
 	}
@@ -26,7 +28,6 @@ public class SocioControlador {
 		Socio nuevoSocio = toModel(socio);
 		bd.agregarSocio(nuevoSocio);
 		return true;
-		//TODO falta logica de validacion 
 	}
 	
 	public void editarSocio(SocioDTO socio) {
@@ -55,6 +56,14 @@ public class SocioControlador {
 	}
 	
 	public void elegirObjetivo() {
+		System.out.print("\n\nElija su Objetivo, ingrese:\n1.- Tonificar Cuerpo\n2.- Bajar de Peso\n3.- Mantener Figura\n");
+		int elegido = lector.nextInt();
+		while ((elegido != 1) && (elegido != 2) && (elegido != 3)) {
+			System.out.print("\n### Error con el dato ingresado ###");
+			System.out.print("\nElija su Objetivo, ingrese:\n1.- Tonificar Cuerpo\n2.- Bajar de Peso\n3.- Mantener Figura\n");
+			elegido = lector.nextInt();
+		}
+		
 		
 	}
 	
