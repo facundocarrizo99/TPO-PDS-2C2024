@@ -1,5 +1,6 @@
 package Modelo;
 
+import Interfaeces.IAuth;
 import Modelo.Objetivo.Objetivo;
 import Modelo.Peso.IPesoAdapter;
 import Modelo.Peso.Peso;
@@ -21,6 +22,8 @@ public class Socio {
     private int ID;
     private boolean baja;
     private IPesoAdapter balanza;
+	private IAuth auth;
+	private int token;
 
     public void pesarse() {
     	Peso nuevoPeso = balanza.obtenerPeso();
@@ -48,7 +51,8 @@ public class Socio {
 
 	}
 	public void Auth() {
-
+		int token = auth.autenticarse();
+		this.token = token;
 	}
 	public void notificar() {
 

@@ -41,32 +41,26 @@ public class Main {
       
         
         SocioControlador SC = SocioControlador.getInstancia();
-        
+		BD bd = BD.getInstancia();
         SC.registrarSocio(socio);
-        BD bd = BD.getInstancia();
         bd.mostrarSocioPrueba();
         
         SocioDTO cambiosSamuel = new SocioDTO(
         		"",
         		"",
-        		"samuel",
-        		"guerrero",
-        		"27",
-        		"1997-07-04",
-        		"m",
-        		"1.70",
-        		"1"
+        		"",
+        		"",
+        		"",
+        		"",
+        		"",
+        		"",
+        		""
         		);
         SC.editarSocio(cambiosSamuel);
         System.out.println("-----");
         bd.mostrarSocioPrueba();
         
-     EjercicioControlador ejercicioControlador = EjercicioControlador.getIntancia();
-     ejercicioControlador.crearEjercicio(ejercicio);
-     
-     bd.mostrarEjercicioPrueba();
-     ejercicioControlador.modificarEjercicio(ejercicio1);
-     bd.mostrarEjercicioPrueba();
+
         
     }
   }

@@ -18,7 +18,9 @@ public class SocioControlador {
 	private static SocioControlador instancia;
 	private BD bd;
 	private Scanner lector;
-	
+
+	//TODO: pasar todos los valores a main porque aca tiene que ser todo abstracto
+
 	private SocioControlador() {
 		lector = new Scanner(System.in);
 		bd = BD.getInstancia();
