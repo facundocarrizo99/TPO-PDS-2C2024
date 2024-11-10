@@ -43,6 +43,16 @@ public class Socio {
 		pesos = new ArrayList<>();
 	}
 
+	// TODO
+	public void mostrarProgreso() {
+
+	}
+	public void Auth() {
+
+	}
+	public void notificar() {
+
+	}
 	public void cambiarObjetivo(Objetivo objetivo) {
         this.objetivo = objetivo;
     }
