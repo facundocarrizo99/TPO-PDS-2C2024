@@ -1,4 +1,4 @@
-package Modelo;
+package TPO_FitnessCenter.src.Modelo;
 
 import Modelo.Objetivo.Objetivo;
 import Modelo.Peso.IPesoAdapter;
