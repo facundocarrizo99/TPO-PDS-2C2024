@@ -108,7 +108,4 @@ public class Ejercicio {
         this.baja = baja;
     }
 
-
-    //TODO: To Strings
-
 }

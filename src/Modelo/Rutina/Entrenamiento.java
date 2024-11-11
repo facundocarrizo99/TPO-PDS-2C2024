@@ -38,6 +38,4 @@ public class Entrenamiento {
     public void setEjerciciosFinalizados(ArrayList<EjercicioRealizado> ejerciciosFinalizados) {
         this.ejerciciosFinalizados = ejerciciosFinalizados;
     }
-
-    //TODO: To Strings
 }

@@ -198,7 +198,17 @@ public class Pantallas {
                 RutinaDTO rutinaDTO = socioControlador.getRutinaDelSocio(socioLogeado);
                 pantallaRutina(rutinaDTO);
             } else if (respuesta == 3) {
-                socioControlador.pesarse(socioLogeado);
+                if( socioControlador.pesarse(socioLogeado)) {
+                    System.out.println("llegaste a tu peso ideal, te gustaria cambiar tu objetivo?\n1.-Si\n2.-No");
+                    int auxRespuesta = lector.nextInt();
+                    while (auxRespuesta != 1 && auxRespuesta != 2) {
+                        System.out.println("### Error en el ingreso de datos ###\nte gustaria cambiar tu objetivo?\n1.-Si\n2.-No");
+                        auxRespuesta = lector.nextInt();
+                    }
+                    if(auxRespuesta == 1) {
+                        elegirObjetivo(socioLogeado);
+                    }
+                }
             } else if (respuesta == 4) {
                 socioControlador.verProgreso(socioLogeado);
 

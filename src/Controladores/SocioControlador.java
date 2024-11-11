@@ -94,13 +94,14 @@ public class SocioControlador {
     public boolean eliminarSocio(SocioDTO socio) {
         int socioID = Integer.parseInt(socio.getID());
         bd.eliminarSocio(socioID);
-        return true;//TODO analizar si es necesario que devuelva un booleano para la entrega
+        return true;
     }
 
-    public void pesarse(SocioDTO socioDTO) {
+    public boolean pesarse(SocioDTO socioDTO) {
         int socioID = Integer.parseInt(socioDTO.getID());
         Socio socio = bd.getSocioByID(socioID);
         socio.pesarse();
+        return socio.getObjetivo() != null && socio.getObjetivo().seEstaCumpliendo(socio) && socio.getObjetivo() instanceof BajarPeso;
     }
 
     private Socio toModel(SocioDTO socio) {

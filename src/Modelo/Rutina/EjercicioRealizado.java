@@ -44,6 +44,4 @@ public class EjercicioRealizado {
     public void setEjercicio(Ejercicio ejercicio) {
         this.ejercicio = ejercicio;
     }
-
-    //TODO: To Strings
 }
