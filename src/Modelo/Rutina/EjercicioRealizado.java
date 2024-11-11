@@ -1,31 +1,31 @@
 package Modelo.Rutina;
 
 public class EjercicioRealizado {
-    private int cantidadSeries;
-    private int repeticiones;
+    private Integer cantidadSeries;
+    private Integer repeticiones;
     private Double peso;
     private Ejercicio ejercicio;
 
-    public EjercicioRealizado(int cantidadSeries, int repeticiones, Double peso, Ejercicio ejercicio) {
+    public EjercicioRealizado(Integer cantidadSeries, Integer repeticiones, Double peso, Ejercicio ejercicio) {
         this.cantidadSeries = cantidadSeries;
         this.repeticiones = repeticiones;
         this.peso = peso;
         this.ejercicio = ejercicio;
     }
 
-    public int getCantidadSeries() {
+    public Integer getCantidadSeries() {
         return cantidadSeries;
     }
 
-    public void setCantidadSeries(int cantidadSeries) {
+    public void setCantidadSeries(Integer cantidadSeries) {
         this.cantidadSeries = cantidadSeries;
     }
 
-    public int getRepeticiones() {
+    public Integer getRepeticiones() {
         return repeticiones;
     }
 
-    public void setRepeticiones(int repeticiones) {
+    public void setRepeticiones(Integer repeticiones) {
         this.repeticiones = repeticiones;
     }
 
@@ -44,5 +44,6 @@ public class EjercicioRealizado {
     public void setEjercicio(Ejercicio ejercicio) {
         this.ejercicio = ejercicio;
     }
+
     //TODO: To Strings
 }

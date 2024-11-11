@@ -2,8 +2,12 @@ package baseDatos;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import DTO.LoginDTO;
 import Modelo.Socio;
 import Modelo.Rutina.Ejercicio;
+import Enum.GrupoMuscular;
+import Enum.NivelExigencia;
 
 public class BD {
 	private List<Socio> socios;
@@ -13,6 +17,7 @@ public class BD {
 	private BD() {
 		socios = new ArrayList<>();
 		ejercicios= new ArrayList<>();
+		guardarEjercicios();
 	}
 	
 	public static BD getInstancia() {
@@ -76,5 +81,36 @@ public class BD {
 			return ejercicios.get(ID-1);
 		}
 		return null;
+	}
+
+	public LoginDTO loginSocio(LoginDTO datosLogin){
+		LoginDTO consulta = null;
+		for (Socio socio : socios) {
+			consulta = socio.auth(datosLogin.getEmail(), datosLogin.getClave());
+			if (consulta.getRespuestaTipo() == "ok" || consulta.getRespuestaTipo() == "claveInvalida") {
+				return consulta;
+			}
+		}
+		return consulta;
+	}
+
+	public void guardarEjercicios() {
+		ejercicios.add(new Ejercicio("Bicicleta", GrupoMuscular.PIERNAS, 3, NivelExigencia.MEDIO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Flexiones", GrupoMuscular.BRAZOS, 3, NivelExigencia.MEDIO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Remo al mentón", GrupoMuscular.HOMBROS, 4, NivelExigencia.MEDIO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Pull-Over", GrupoMuscular.ESPALDA, 3, NivelExigencia.MEDIO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Press de banca", GrupoMuscular.PECHO, 3, NivelExigencia.MEDIO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Flexiones", GrupoMuscular.PECHO, 2, NivelExigencia.ALTO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Remo con mancuernas", GrupoMuscular.ESPALDA, 2, NivelExigencia.ALTO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Press Militar", GrupoMuscular.HOMBROS, 2, NivelExigencia.ALTO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Sentadillas", GrupoMuscular.PIERNAS, 2, NivelExigencia.ALTO, "Video.mp4"));
+		ejercicios.add(new Ejercicio("Flexiones Triceps",GrupoMuscular.BRAZOS,2,NivelExigencia.ALTO,"Video.mp4"));
+		ejercicios.add(new Ejercicio("Flexiones", GrupoMuscular.PECHO,2,NivelExigencia.MEDIO,"Video.mp4"));
+		ejercicios.add(new Ejercicio("Remo con barra ",GrupoMuscular.ESPALDA,3,NivelExigencia.BAJO,"Video.mp4"));
+		ejercicios.add(new Ejercicio("Elevanciones Laterales",GrupoMuscular.HOMBROS,2, NivelExigencia.MEDIO,"Video.mp4" ));
+		ejercicios.add(new Ejercicio("Sentadilla",GrupoMuscular.PIERNAS,3,NivelExigencia.BAJO,"Video.mp4"));
+		ejercicios.add(new Ejercicio("Fondos de Tríceps", GrupoMuscular.BRAZOS,3,NivelExigencia.MEDIO,"Video.mp4"));
+
+
 	}
 }

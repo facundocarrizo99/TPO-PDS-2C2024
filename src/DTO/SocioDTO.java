@@ -29,56 +29,28 @@ public class SocioDTO {
 		return mail;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
 	public String getClave() {
 		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public String getApellido() {
 		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
 	}
 
 	public String getEdad() {
 		return edad;
 	}
 
-	public void setEdad(String edad) {
-		this.edad = edad;
-	}
-
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public String getSexo() {
 		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
 	}
 
 	public String getPeso() {
@@ -93,17 +65,8 @@ public class SocioDTO {
 		return altura;
 	}
 
-	public void setAltura(String altura) {
-		this.altura = altura;
-	}
-
 	public String getID() {
 		return ID;
 	}
 
-	public void setID(String iD) {
-		ID = iD;
-	}
-    
-    
 }

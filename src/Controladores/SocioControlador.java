@@ -32,6 +32,26 @@ public class SocioControlador {
 		}
 		return instancia;
 	}
+
+	public Socio getSocioByID(String ID){
+		return bd.getSocioByID(Integer.parseInt(ID));
+	}
+
+	public SocioDTO getSocioDtobyID(String ID){
+		Socio socio = bd.getSocioByID(Integer.parseInt(ID));
+
+		return new SocioDTO(
+				socio.getMail(),
+				"",
+				socio.getNombre(),
+				socio.getApellido(),
+				"",
+				"",
+				"",
+				"",
+				String.valueOf(socio.getID())
+		);
+	}
 	
 	public boolean registrarSocio(SocioDTO socio) {
 		Socio nuevoSocio = toModel(socio);
@@ -80,54 +100,8 @@ public class SocioControlador {
 		socio.pesarse();
 	}
 	
-	public void elegirObjetivo(SocioDTO socioDTO) {
-		int socioID = Integer.valueOf(socioDTO.getID());
-		Socio socio = bd.getSocioByID(socioID);
-		System.out.print("\n\nElija su Objetivo, ingrese:\n1.- Tonificar Cuerpo\n2.- Bajar de Peso\n3.- Mantener Figura\n");
-		int elegido = lector.nextInt();
-		while ((elegido != 1) && (elegido != 2) && (elegido != 3)) {
-			System.out.print("\n### Error con el dato ingresado ###");
-			System.out.print("\nElija su Objetivo, ingrese:\n1.- Tonificar Cuerpo\n2.- Bajar de Peso\n3.- Mantener Figura\n");
-			elegido = lector.nextInt();
-		}
-		// area de factory de objetivo //
-		Objetivo obj;
-		if (elegido == 1) {
-			double masaMuscularIdeal;
-			double porcentajeGrasaIdeal;
-			if (socio.getSexo() == "masculino") {
-				masaMuscularIdeal = 0.4;
-				porcentajeGrasaIdeal = 0.17;
-			}else {
-				masaMuscularIdeal = 0.3;
-				porcentajeGrasaIdeal = 0.24;
-			}
-			obj = new TonificarCuerpo(150, 120, 0, 4, NivelExigencia.ALTO, masaMuscularIdeal, porcentajeGrasaIdeal);
-		}else if (elegido == 2) {
-			double pesoIdeal;
-			if (socio.getSexo() == "masculino") {
-				pesoIdeal = socio.getAltura() - 100;
-			}else {
-				pesoIdeal = socio.getAltura() - 104;
-			}
-			obj = new BajarPeso(90, 60, 3, 10, null, pesoIdeal);
-		}else {
-			System.out.print("\nCuento te gustaria que pueda oscilar tu peso ideal? (Numero Entero positivo, menor a 20)\n");
-			int valorConfigurable = lector.nextInt();
-			while (valorConfigurable < 0 || valorConfigurable > 20) {
-				System.out.print("### Error dato incorrecto ###");
-				System.out.print("\nCuento te gustaria que pueda oscilar tu peso ideal? (Numero Entero positivo, menor a 20)\n");
-				valorConfigurable = lector.nextInt();
-			}
-			obj = new MantenerFigura(45, 80, 2, 4, NivelExigencia.BAJO, valorConfigurable);
-		}
-		socio.setObjetivo(obj);
-	}
-	
-	
-	
 	private Socio toModel(SocioDTO socio) {
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         
         Date fecha = null;
         

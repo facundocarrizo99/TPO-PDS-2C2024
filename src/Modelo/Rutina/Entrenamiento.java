@@ -7,11 +7,12 @@ import java.util.Date;
 public class Entrenamiento {
     private ArrayList<Ejercicio> ejercicios;
     private LocalDate diaRutina;
-    private ArrayList<Ejercicio> ejerciciosFinalizados;
+    private ArrayList<EjercicioRealizado> ejerciciosFinalizados;
 
     public Entrenamiento(LocalDate diaRutina) {
         this.ejercicios = new ArrayList<Ejercicio>();
         this.diaRutina = diaRutina;
+        this.ejerciciosFinalizados = new ArrayList<EjercicioRealizado>();
     }
 
     public ArrayList<Ejercicio> getEjercicios() {
@@ -30,11 +31,11 @@ public class Entrenamiento {
         this.diaRutina = diaRutina;
     }
 
-    public ArrayList<Ejercicio> getEjerciciosFinalizados() {
+    public ArrayList<EjercicioRealizado> getEjerciciosFinalizados() {
         return ejerciciosFinalizados;
     }
 
-    public void setEjerciciosFinalizados(ArrayList<Ejercicio> ejerciciosFinalizados) {
+    public void setEjerciciosFinalizados(ArrayList<EjercicioRealizado> ejerciciosFinalizados) {
         this.ejerciciosFinalizados = ejerciciosFinalizados;
     }
 

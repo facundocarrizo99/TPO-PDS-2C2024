@@ -1,38 +1,23 @@
 package DTO;
 
 public class EjercicioDTO {
-    private String ID;
-    private String descripcion;
     private String grupoMuscular;
-    private String cantidadSerie;
+    private String cantidadSeries;
     private String repeticiones;
     private String peso;
     private String nivelAerobico;
-    private String NivelExigencia;
+    private String nivelExigencia;
     private String videoIlustrativo;
+    private String descripcion;
 
-    public EjercicioDTO(String ID, String descripcion, String grupoMuscular, String cantidadSerie, String repeticiones, String peso,
-                        String nivelAerobico, String nivelExigencia, String videoIlustrativo) {
-        this.descripcion = descripcion;
+    public EjercicioDTO(String grupoMuscular, String cantidadSeries, String repeticiones, String peso, String nivelAerobico, String nivelExigencia, String videoIlustrativo, String descripcion) {
         this.grupoMuscular = grupoMuscular;
-        this.cantidadSerie = cantidadSerie;
+        this.cantidadSeries = cantidadSeries;
         this.repeticiones = repeticiones;
         this.peso = peso;
         this.nivelAerobico = nivelAerobico;
-        this.NivelExigencia = nivelExigencia;
+        this.nivelExigencia = nivelExigencia;
         this.videoIlustrativo = videoIlustrativo;
-        this.ID = ID;
-    }
-
-    public EjercicioDTO(String ID) {
-        this.ID = ID;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -44,12 +29,12 @@ public class EjercicioDTO {
         this.grupoMuscular = grupoMuscular;
     }
 
-    public String getCantidadSerie() {
-        return cantidadSerie;
+    public String getCantidadSeries() {
+        return cantidadSeries;
     }
 
-    public void setCantidadSerie(String cantidadSerie) {
-        this.cantidadSerie = cantidadSerie;
+    public void setCantidadSeries(String cantidadSeries) {
+        this.cantidadSeries = cantidadSeries;
     }
 
     public String getRepeticiones() {
@@ -77,11 +62,11 @@ public class EjercicioDTO {
     }
 
     public String getNivelExigencia() {
-        return NivelExigencia;
+        return nivelExigencia;
     }
 
     public void setNivelExigencia(String nivelExigencia) {
-        NivelExigencia = nivelExigencia;
+        this.nivelExigencia = nivelExigencia;
     }
 
     public String getVideoIlustrativo() {
@@ -92,9 +77,11 @@ public class EjercicioDTO {
         this.videoIlustrativo = videoIlustrativo;
     }
 
-    public String getID() {
-        return ID;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }
