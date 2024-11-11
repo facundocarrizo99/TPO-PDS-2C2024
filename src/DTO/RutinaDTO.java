@@ -3,8 +3,6 @@ package DTO;
 import java.util.ArrayList;
 
 public record RutinaDTO(ArrayList<EntrenamientoDTO> rutina, String fechaInicio, String fechaFin) {
-}
-
 //public class RutinaDTO {
 //    private final ArrayList<EntrenamientoDTO> rutina;
 //    private final String fechaInicio;
@@ -28,3 +26,4 @@ public record RutinaDTO(ArrayList<EntrenamientoDTO> rutina, String fechaInicio, 
 //        return fechaFin;
 //    }
 //}
+}

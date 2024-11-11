@@ -79,7 +79,9 @@ public class SocioDTO {
 	public String getObjetivo(){
 		return objetivo;
 	}
+
 	public String getValorConfigurable() { return valorConfigurable; }
+
 	public void setValorConfigurable(String valorConfigurable) {
 		this.valorConfigurable = valorConfigurable;
 	}

@@ -21,6 +21,14 @@ public class EjercicioDTO {
         this.descripcion = descripcion;
     }
 
+    public EjercicioDTO(String grupoMuscular, String nivelAerobico, String nivelExigencia, String videoIlustrativo, String descripcion) {
+        this.grupoMuscular = grupoMuscular;
+        this.nivelAerobico = nivelAerobico;
+        this.nivelExigencia = nivelExigencia;
+        this.videoIlustrativo = videoIlustrativo;
+        this.descripcion = descripcion;
+    }
+
     public String getGrupoMuscular() {
         return grupoMuscular;
     }

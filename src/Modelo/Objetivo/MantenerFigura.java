@@ -9,23 +9,29 @@ import java.util.ArrayList;
 
 public class MantenerFigura extends Objetivo {
 
-    private int valorConfigurable;
+    private Double valorConfigurable;
     private Peso pesoInicial;
 
-    public MantenerFigura(int valorConfigurable, Peso pesoInicial) {
+    public MantenerFigura(Double valorConfigurable, Peso pesoInicial) {
         this.generarRutina();
         this.valorConfigurable = valorConfigurable;
         this.pesoInicial = pesoInicial;
     }
-    public int getValorConfigurable() { return valorConfigurable; }
-    public Peso getPesoInicial() { return pesoInicial; }
+
+    public Double getValorConfigurable() {
+        return valorConfigurable;
+    }
+
+    public Peso getPesoInicial() {
+        return pesoInicial;
+    }
 
     @Override
     public boolean seEstaCumpliendo(Socio socio) {
         boolean res = false;
         Peso ultimo = socio.getPesos().getLast();
-        if (ultimo.getPesoKG() <= (pesoInicial.getPesoKG() + this.valorConfigurable) ||
-                ultimo.getPesoKG() >= (this.valorConfigurable - pesoInicial.getPesoKG())) {
+        if ((this.valorConfigurable - pesoInicial.getPesoKG()) <= ultimo.getPesoKG() &&
+                ultimo.getPesoKG() <= (pesoInicial.getPesoKG() + this.valorConfigurable)) {
             res = true;
         }
         return res;

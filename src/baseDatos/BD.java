@@ -2,7 +2,6 @@ package baseDatos;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import Modelo.Socio;
 import Modelo.Rutina.Ejercicio;
@@ -10,7 +9,7 @@ import Enum.GrupoMuscular;
 import Enum.NivelExigencia;
 
 public class BD {
-    private List<Socio> socios;
+    private ArrayList<Socio> socios;
     private ArrayList<Ejercicio> ejercicios;
     private static BD instancia;
 
@@ -37,7 +36,7 @@ public class BD {
         return socios.size();
     }
 
-    public List<Socio> getSocios() {
+    public ArrayList<Socio> getSocios() {
         return socios;
     }
 
@@ -86,8 +85,8 @@ public class BD {
     }
 
     public void guardarSociosBase() {
-        socios.add(new Socio("sam@gmail.com", "hola1234", "Sam", "Guerrero", 25,
-                Date.valueOf("1999-10-10"), "M", 1.75, 1));
+        socios.add(new Socio("sam", "hola", "Sam", "Guerrero", 25,
+                Date.valueOf("1999-10-10"), "M", 190, 1));
     }
 
     public void guardarEjercicios() {
@@ -106,6 +105,20 @@ public class BD {
         ejercicios.add(new Ejercicio("Elevanciones Laterales", GrupoMuscular.HOMBROS, 2, NivelExigencia.MEDIO, "Video.mp4"));
         ejercicios.add(new Ejercicio("Sentadilla", GrupoMuscular.PIERNAS, 3, NivelExigencia.BAJO, "Video.mp4"));
         ejercicios.add(new Ejercicio("Fondos de Tríceps", GrupoMuscular.BRAZOS, 3, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Curl de Bíceps", GrupoMuscular.BRAZOS, 4, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Elevación de talones", GrupoMuscular.PIERNAS, 3, NivelExigencia.BAJO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Abdominales crunch", GrupoMuscular.PECHO, 3, NivelExigencia.BAJO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Plancha", GrupoMuscular.PECHO, 1, NivelExigencia.ALTO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Press de piernas", GrupoMuscular.PIERNAS, 3, NivelExigencia.ALTO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Press Arnold", GrupoMuscular.HOMBROS, 4, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Dominadas", GrupoMuscular.ESPALDA, 3, NivelExigencia.ALTO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Crunch oblicuo", GrupoMuscular.PECHO, 2, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Desplantes", GrupoMuscular.PIERNAS, 4, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Pull-Ups", GrupoMuscular.ESPALDA, 3, NivelExigencia.ALTO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Press francés", GrupoMuscular.BRAZOS, 3, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Flexión diamante", GrupoMuscular.BRAZOS, 2, NivelExigencia.ALTO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Mountain Climbers", GrupoMuscular.PECHO, 3, NivelExigencia.MEDIO, "Video.mp4"));
+        this.ejercicios.add(new Ejercicio("Cardio en cinta", GrupoMuscular.PIERNAS, 5, NivelExigencia.ALTO, "Video.mp4"));
 
 
     }

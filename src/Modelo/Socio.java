@@ -37,7 +37,10 @@ public class Socio implements IObservable {
     public void pesarse() {
         Peso nuevoPeso = balanza.obtenerPeso();
         this.pesos.add(nuevoPeso);
-        this.notificar();
+        if (objetivo != null) {
+            //todo si me peso y cumplo el objetivo entonces cumplo el objetivo y cambio el objetivo
+            this.notificar();
+        }
     }
 
     // Constructor, getter y setter //
@@ -60,9 +63,6 @@ public class Socio implements IObservable {
 
         TrofeoDedicacion trofeoDedicacion = new TrofeoDedicacion(notificadorPush);
         this.agregarO(trofeoDedicacion);
-
-        TrofeoConstancia trofeoConstancia = new TrofeoConstancia(notificadorPush);
-        this.agregarO(trofeoConstancia);
     }
 
     public double getAlturaCM() {
@@ -136,7 +136,6 @@ public class Socio implements IObservable {
 
     public void cambiarObjetivo(Objetivo objetivo) {
         this.objetivo = objetivo;
-        this.notificar();
     }
 
     public Date getFechaNacimiento() {

@@ -14,7 +14,7 @@ public class Pantallas {
     public static final SocioControlador socioControlador = SocioControlador.getInstancia();
     private static final Scanner lector = new Scanner(System.in);
 
-    public static void limpiarPantalla () {
+    public static void limpiarPantalla() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
@@ -35,7 +35,7 @@ public class Pantallas {
         }
     }
 
-    public static LoginDTO PantallaLogin () {
+    public static LoginDTO PantallaLogin() {
         showString("Email: ");
         String email = lector.next();
         System.out.println();
@@ -56,14 +56,14 @@ public class Pantallas {
             System.out.println();
         }
 
-        return new LoginDTO("","", email, clave);
+        return new LoginDTO("", "", email, clave);
     }
 
     private static void showString(String s) {
         System.out.print(s);
     }
 
-    public static SocioDTO registrarse (){
+    public static SocioDTO registrarse() {
         showString("Formulario para Registrarse: \n\n");
         showString("Email: ");
         String email = lector.next();
@@ -135,7 +135,7 @@ public class Pantallas {
             System.out.println(sexo);
         }
 
-        showString("Ingrese la altura (decimales separados con \".\"): ");
+        showString("Ingrese la altura en CM (decimales separados con \".\"): ");
         String altura = lector.next();
         System.out.println();
         while (altura.isEmpty()) {
@@ -144,7 +144,6 @@ public class Pantallas {
             altura = lector.next();
             System.out.println();
         }
-
 
 
         return new SocioDTO(
@@ -163,8 +162,8 @@ public class Pantallas {
     //          Pantallas cuando el usuario esta logeado            //
     public static void homeUsuario(SocioDTO socioLogeado) {
         RutinaControlador rutinaControlador = RutinaControlador.getInstance();
-        
-        System.out.println("Bienvenido "+socioLogeado.getNombre()+" "+socioLogeado.getApellido()+"\n");
+
+        System.out.println("Bienvenido " + socioLogeado.getNombre() + " " + socioLogeado.getApellido() + "\n");
 
         if (!socioControlador.tieneObjetivo(socioLogeado)) {
             socioControlador.pesarse(socioLogeado);
@@ -183,48 +182,47 @@ public class Pantallas {
             System.out.println("7. Reforzar Rutina");
             System.out.println("8. Cerrar Sesion");
             System.out.println("============================");
-            showString("Seleccione una opción (1-7): ");
+            showString("Seleccione una opción (1-8): ");
             respuesta = lector.nextInt();
             System.out.println();
             while (respuesta != 1 && respuesta != 2 && respuesta != 3 && respuesta != 4 && respuesta != 5 &&
-            respuesta != 6 && respuesta != 7 && respuesta != 8 ) {
+                    respuesta != 6 && respuesta != 7 && respuesta != 8) {
                 System.out.println("### Por favor ingrese un valor valido ###\n");
                 respuesta = lector.nextInt();
             }
             if (respuesta == 1) {
                 EntrenamientoDTO entrenamientoDTO = rutinaControlador.comenzarEntremaniento(socioLogeado);
                 EntrenamientoDTO entrenamientoFinalizado = pantallaEntrenamientoDelDia(entrenamientoDTO);
-                socioControlador.finalizarEntrenamiento(socioLogeado,entrenamientoFinalizado);
-            } else if(respuesta == 2) {
+                socioControlador.finalizarEntrenamiento(socioLogeado, entrenamientoFinalizado);
+            } else if (respuesta == 2) {
                 RutinaDTO rutinaDTO = socioControlador.getRutinaDelSocio(socioLogeado);
                 pantallaRutina(rutinaDTO);
-            } else if(respuesta == 3) {
+            } else if (respuesta == 3) {
                 socioControlador.pesarse(socioLogeado);
-            } else if(respuesta == 4) {
+            } else if (respuesta == 4) {
                 socioControlador.verProgreso(socioLogeado);
-                
-                System.out.println("Presione enter para continuar");
-                lector.next();
+
+                enterParaContinuar();
             } else if (respuesta == 5) {
                 elegirObjetivo(socioLogeado);
             } else if (respuesta == 6) {
                 ArrayList<LogroDTO> logrosSocio = socioControlador.getlogrosSocio(socioLogeado);
                 System.out.println("Aqui se muestran tus Trofeos");
                 System.out.println("============================");
-                for(LogroDTO logroDTO : logrosSocio) {
+                for (LogroDTO logroDTO : logrosSocio) {
                     System.out.println("Trofeo: " + logroDTO.getNombre());
                 }
                 System.out.println("============================");
-                System.out.println("Presione enter para continuar");
-                lector.next();
+                enterParaContinuar();
             } else if (respuesta == 7) {
                 System.out.println("Ingrese cuanto desea reforzar la rutina, debe ser en kg (los decimales con . )\n");
                 String refuerzo = lector.next();
                 while (Double.parseDouble(refuerzo) < 0) {
                     System.out.println("### Error el refuerzo debe ser positivo ###");
-                    
+                    refuerzo = lector.next();
                 }
-
+                socioLogeado.setValorConfigurable(refuerzo);
+                socioControlador.reforzarRutina(socioLogeado);
             }
         }
     }
@@ -307,11 +305,10 @@ public class Pantallas {
 
             System.out.println("======================================\n");
         }
-        System.out.println("Presione enter para continuar");
-        lector.next();
+        enterParaContinuar();
     }
 
-    private static void elegirObjetivo(SocioDTO socioDTO){
+    private static void elegirObjetivo(SocioDTO socioDTO) {
         System.out.println("===== Cambiar Objetivo =====");
         System.out.println("1. Bajar de peso");
         System.out.println("2. Mantener Figura");
@@ -319,11 +316,18 @@ public class Pantallas {
         System.out.println("============================");
         showString("Seleccione una opción (1-3): ");
         int opcion = lector.nextInt();
-        if (opcion == 1){
+        if (opcion == 1) {
             System.out.println("Has seleccionado: Bajar de peso");
             socioDTO.setObjetivo("1");
         } else if (opcion == 2) {
             System.out.println("Has seleccionado: Mantener Figura");
+            System.out.print("Ingrese el valor configurable (los decimales con . )\n");
+            String refuerzo = lector.next();
+            while (Double.parseDouble(refuerzo) < 0) {
+                System.out.println("### Error el refuerzo debe ser positivo ###");
+                refuerzo = lector.next();
+            }
+            socioDTO.setValorConfigurable(refuerzo);
             socioDTO.setObjetivo("2");
         } else if (opcion == 3) {
             System.out.println("Has seleccionado: Tonificar");
@@ -331,8 +335,75 @@ public class Pantallas {
         }
         socioControlador.cambiarObjetivo(socioDTO);
     }
-    public static EjercicioDTO pantallaCrearEjercicio(){
-        EjercicioDTO ejercicio = null;
-        return ejercicio;
+
+    // Métodos para validar entrada numérica
+    private static boolean isNumeric(String str) {
+        return str.matches("\\d+");
+    }
+
+    private static boolean isDouble(String str) {
+        return str.matches("\\d+(\\.\\d+)?");
+    }
+
+    private static void enterParaContinuar(){
+        System.out.print("Escriba algun numero para continuar...\n");
+        int aux = lector.nextInt();
+        System.out.print("\n\n");
+    }
+
+    public static EjercicioDTO pantallaCrearEjercicio() {
+
+        // Pedir Descripción
+        showString("Descripción del ejercicio: ");
+        String descripcion = lector.nextLine();
+        while (descripcion.isEmpty()) {
+            showString("### Error ###\nLa descripción no puede estar vacía\n\n");
+            showString("Descripción del ejercicio: ");
+            descripcion = lector.nextLine();
+        }
+
+        // Pedir Video
+        showString("Video ilustrativo del ejercicio: ");
+        String video = lector.nextLine();
+        while (video.isEmpty()) {
+            showString("### Error ###\nEl Video No  no puede estar vacía\n\n");
+            showString("Video ilustrativo del ejercicio: ");
+            video = lector.nextLine();
+        }
+
+        // Pedir Dificultad
+        showString("Dificultad (BAJO, MEDIO, ALTO): ");
+        String nivelExigencia = lector.nextLine();
+        while (!nivelExigencia.equals("BAJO") && !nivelExigencia.equals("MEDIO") && !nivelExigencia.equals("ALTO")) {
+            showString("### Error ###\nDificultad no válida. Elija entre 'BAJO', 'MEDIO' o 'ALTO'\n\n");
+            showString("Dificultad (BAJO, MEDIO, ALTO): ");
+            nivelExigencia = lector.nextLine();
+        }
+
+        // Pedir Categoría
+        showString("Grupo Muscular (PECHO, ESPALDA, HOMBROS, PIERNAS, BRAZOS): ");
+        String grupoMuscular = lector.nextLine();
+        while (!grupoMuscular.equals("PECHO") && !grupoMuscular.equals("ESPALDA") && !grupoMuscular.equals("HOMBROS") && !grupoMuscular.equals("PIERNAS") && !grupoMuscular.equals("BRAZOS")) {
+            showString("### Error ###\nDificultad no válida. Elija entre 'PECHO', 'ESPALDA', HOMBROS, PIERNAS o 'BRAZOS'\n\n");
+            showString("Grupo Muscular (PECHO, ESPALDA, HOMBROS, PIERNAS, BRAZOS): ");
+            grupoMuscular = lector.nextLine();
+        }
+
+        // Pedir Nivel Aerobico
+        showString("Nivel Aerobico: ");
+        String nivelAerobico = lector.nextLine();
+        while (nivelAerobico.isEmpty() || !isNumeric(nivelAerobico)) {
+            showString("### Error ###\nEl Nivel Aerobico debe ser un número válido\n\n");
+            showString("Nivel Aerobico: ");
+            nivelAerobico = lector.nextLine();
+        }
+        // Crear y retornar el objeto EjercicioDTO
+        return new EjercicioDTO(
+                grupoMuscular,
+                nivelAerobico,
+                nivelExigencia,
+                video,
+                descripcion
+        );
     }
 }

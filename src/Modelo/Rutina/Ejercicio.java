@@ -24,6 +24,17 @@ public class Ejercicio {
         this.baja = false;
     }
 
+    public Ejercicio(String descripcion, GrupoMuscular grupoMuscular, Integer nivelAerobico, NivelExigencia nivelExigencia, String videoIlustrativo, Integer cantidadSeries, Integer repeticiones, double peso) {
+        this.grupoMuscular = grupoMuscular;
+        this.cantidadSeries = cantidadSeries;
+        this.repeticiones = repeticiones;
+        this.peso = peso;
+        this.nivelAerobico = nivelAerobico;
+        this.nivelExigencia = nivelExigencia;
+        this.videoIlustrativo = videoIlustrativo;
+        this.descripcion = descripcion;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }

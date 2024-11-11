@@ -137,32 +137,12 @@ public class SocioControlador {
         Socio socio = bd.getSocioByID(Integer.parseInt(socioDTO.getID()));
         ArrayList<Peso> lista = socio.getPesos();
 
-        if (Integer.parseInt(socioDTO.getObjetivo()) == 1) {
-            System.out.println("Tu peso actual es de: " + lista.getLast().getPesoKG() + "Kg");
-            System.out.println("Aqui una lista de tus Pesos:");
-            for (int i = 1; i < lista.size(); i++) {
-                Peso peso = lista.get(i);
-                System.out.println("Fecha: " + (peso.getFecha()) + peso.getPesoKG() + "Kg");
-            }
-
-
-        } else if (Integer.parseInt(socioDTO.getObjetivo()) == 2) {
-            System.out.println("Tu Masa Muscular actual es de: " + lista.getLast().getMasaMuscularKG() + "Kg");
-            System.out.println("Aqui una lista de tus Masas Musculares:");
-            for (int i = 1; i < lista.size(); i++) {
-                Peso peso = lista.get(i);
-                System.out.println("Fecha: " + (peso.getFecha()) + peso.getMasaMuscularKG() + "Kg");
-            }
-        } else if (Integer.parseInt(socioDTO.getObjetivo()) == 3) {
-            MantenerFigura objetivo = (MantenerFigura) socio.getObjetivo();
-            System.out.println("Tu peso actual es de: " + lista.getLast().getPesoKG() + "Kg");
-            System.out.println("Tu objetivo es mantenerte en: " + objetivo.getPesoInicial());
-            System.out.println("Aqui una lista de tus Pesos:");
-            for (int i = 1; i < lista.size(); i++) {
-                Peso peso = lista.get(i);
-                System.out.println("Fecha: " + (peso.getFecha()) + peso.getPesoKG() + "Kg");
-            }
+        System.out.println("Tu peso actual es de: " + lista.getLast().getPesoKG() + "Kg");
+        System.out.println("Aqui tu historial de Pesos:");
+        for (Peso peso : lista) {
+            System.out.println("Peso: " + peso.getPesoKG() + "Kg ||" + "Fecha: " + (peso.getFecha()) + " || Masa muscular: " + peso.getMasaMuscularKG() + "% || Grasa corporal: " + peso.getPorcentajeGrasa() + "%");
         }
+
     }
 
 
@@ -174,11 +154,10 @@ public class SocioControlador {
     public void cambiarObjetivo(SocioDTO socioDTO) {
         int id = Integer.parseInt(socioDTO.getID());
         Socio socio = bd.getSocioByID(id);
-        socio.pesarse();
         Objetivo objetivo = switch (socioDTO.getObjetivo()) {
             case "1" -> new BajarPeso(socio);
             case "2" ->
-                    new MantenerFigura(Integer.parseInt(socioDTO.getValorConfigurable()), socio.getPesos().getLast());
+                    new MantenerFigura(Double.parseDouble(socioDTO.getValorConfigurable()), socio.getPesos().getLast());
             case "3" -> new TonificarCuerpo();
             default -> null;
         };
@@ -192,7 +171,7 @@ public class SocioControlador {
 
     public void reforzarRutina(SocioDTO socioDTO) {
         Socio socio = bd.getSocioByID(Integer.parseInt(socioDTO.getID()));
-        rutinaControlador.reforzarRutina(Double.parseDouble(socioDTO.getValorConfigurable()),socio.getObjetivo().getRutina());
+        rutinaControlador.reforzarRutina(Double.parseDouble(socioDTO.getValorConfigurable()), socio.getObjetivo().getRutina());
     }
 
     public ArrayList<LogroDTO> getlogrosSocio(SocioDTO socioDTO) {

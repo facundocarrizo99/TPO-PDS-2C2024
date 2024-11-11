@@ -3,6 +3,7 @@ package Modelo.Trofeo;
 import Interfaeces.IObservable;
 import Modelo.NotificadorPush;
 import Modelo.Rutina.Entrenamiento;
+import Modelo.Rutina.Rutina;
 import Modelo.Socio;
 
 public class TrofeoConstancia extends Trofeo {
@@ -14,21 +15,21 @@ public class TrofeoConstancia extends Trofeo {
 
     @Override
     public void serNotificadoPor(IObservable observado) {
-        if (observado instanceof Socio socio) {
-            controlarEntrenamientos(socio);
+        if (observado instanceof Rutina rutina) {
+            controlarEntrenamientos(rutina);
         }
     }
 
-    public void controlarEntrenamientos(Socio socio) {
+    public void controlarEntrenamientos(Rutina rutina) {
         boolean res = true;
-        for (Entrenamiento entrenamiento : socio.getObjetivo().getRutina().getEntrenamientos()) {
+        for (Entrenamiento entrenamiento : rutina.getEntrenamientos()) {
             if (entrenamiento.getEjercicios().size() != entrenamiento.getEjerciciosFinalizados().size()) {
                 res = false;
                 break;
             }
         }
         if (res) {
-            otorgarTrofeo(socio);
+            otorgarTrofeo(rutina.getSocio());
         }
     }
 }
