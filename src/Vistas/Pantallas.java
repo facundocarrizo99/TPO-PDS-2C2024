@@ -1,18 +1,18 @@
 package Vistas;
 
 import Controladores.RutinaControlador;
-import DTO.EntrenamientoDTO;
-import DTO.LoginDTO;
+import Controladores.SocioControlador;
+import DTO.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Scanner;
-import DTO.SocioDTO;
+
 
 public class Pantallas {
-    private static Scanner lector = new Scanner(System.in);
-    private static RutinaControlador rutinaControlador;
+    public static final SocioControlador socioControlador = SocioControlador.getInstancia();
+    private static final Scanner lector = new Scanner(System.in);
 
     public static void limpiarPantalla () {
         for (int i = 0; i < 50; i++) {
@@ -20,12 +20,15 @@ public class Pantallas {
         }
     }
 
-    private static boolean esFechaValida(String fecha) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        formato.setLenient(false); // Evita que se realicen ajustes automáticos en la fecha
+    public static boolean esFechaValida(String fecha) {
+        return validarFormato(fecha);
+    }
 
+    private static boolean validarFormato(String fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        formato.setLenient(false); // Evita ajustes automáticos en la fecha
         try {
-            Date date = formato.parse(fecha);
+            formato.parse(fecha);
             return true;
         } catch (ParseException e) {
             return false;
@@ -33,22 +36,22 @@ public class Pantallas {
     }
 
     public static LoginDTO PantallaLogin () {
-        System.out.print("Email: ");
+        showString("Email: ");
         String email = lector.next();
         System.out.println();
-        while (email == "") {
-            System.out.print("### Error ###\nEl Email no puede estar vacio\n\n");
-            System.out.print("Email: ");
+        while (email.isEmpty()) {
+            showString("### Error ###\nEl Email no puede estar vacio\n\n");
+            showString("Email: ");
             email = lector.next();
             System.out.println();
         }
 
-        System.out.print("Contraseña: ");
+        showString("Contraseña: ");
         String clave = lector.next();
         System.out.println();
-        while (clave == "") {
-            System.out.print("### Error ###\nLa Contraseña no puede estar vaciá\n\n");
-            System.out.print("Contraseña: ");
+        while (clave.isEmpty()) {
+            showString("### Error ###\nLa Contraseña no puede estar vaciá\n\n");
+            showString("Contraseña: ");
             clave = lector.next();
             System.out.println();
         }
@@ -56,87 +59,93 @@ public class Pantallas {
         return new LoginDTO("","", email, clave);
     }
 
+    private static void showString(String s) {
+        System.out.print(s);
+    }
+
     public static SocioDTO registrarse (){
-        System.out.print("Formulario para Registrarse: \n\n");
-        System.out.print("Email: ");
+        showString("Formulario para Registrarse: \n\n");
+        showString("Email: ");
         String email = lector.next();
         System.out.println();
-        while (email == "") {
-            System.out.print("### Error ###\nEl Email no puede estar vacio\n\n");
-            System.out.print("Email: ");
+        while (email.isEmpty()) {
+            showString("### Error ###\nEl Email no puede estar vacio\n\n");
+            showString("Email: ");
             email = lector.next();
             System.out.println();
         }
 
-        System.out.print("Contraseña: ");
+        showString("Contraseña: ");
         String clave = lector.next();
         System.out.println();
-        while (clave == "") {
-            System.out.print("### Error ###\nLa Contraseña no puede estar vaciá\n\n");
-            System.out.print("Contraseña: ");
+        while (clave.isEmpty()) {
+            showString("### Error ###\nLa Contraseña no puede estar vaciá\n\n");
+            showString("Contraseña: ");
             clave = lector.next();
             System.out.println();
         }
 
-        System.out.print("Nombre: ");
+        showString("Nombre: ");
         String nombre = lector.next();
         System.out.println();
-        while (nombre == "") {
-            System.out.print("### Error ###\nEl nombre no puede estar vacio\n\n");
-            System.out.print("Nombre: ");
+        while (nombre.isEmpty()) {
+            showString("### Error ###\nEl nombre no puede estar vacio\n\n");
+            showString("Nombre: ");
             nombre = lector.next();
             System.out.println();
         }
 
-        System.out.print("Apellido: ");
+        showString("Apellido: ");
         String apellido = lector.next();
         System.out.println();
-        while (apellido == "") {
-            System.out.print("### Error ###\nEl apellido no puede estar vacio\n\n");
-            System.out.print("Apellido: ");
+        while (apellido.isEmpty()) {
+            showString("### Error ###\nEl apellido no puede estar vacio\n\n");
+            showString("Apellido: ");
             apellido = lector.next();
             System.out.println();
         }
 
-        System.out.print("Edad: ");
+        showString("Edad: ");
         String edad = lector.next();
         System.out.println();
-        while (edad == "") {
-            System.out.print("### Error ###\nLa edad no puede estar vaciá\n\n");
-            System.out.print("Edad: ");
+        while (edad.isEmpty()) {
+            showString("### Error ###\nLa edad no puede estar vaciá\n\n");
+            showString("Edad: ");
             edad = lector.next();
             System.out.println();
         }
 
-        System.out.print("Fecha de nacimiento \"dd-MM-yyyy\": ");
+        showString("Fecha de nacimiento \"dd-MM-yyyy\": ");
         String fechaNacimiento = lector.next();
         System.out.println();
-        while (esFechaValida(fechaNacimiento)) {
-            System.out.print("### Error ###\nLa Fecha de nacimiento no es valida\n\n");
-            System.out.print("Fecha de nacimiento \"dd-MM-yyyy\": ");
+        while (!esFechaValida(fechaNacimiento)) {
+            showString("### Error ###\nLa Fecha de nacimiento no es valida\n\n");
+            showString("Fecha de nacimiento \"dd-MM-yyyy\": ");
             fechaNacimiento = lector.next();
             System.out.println();
         }
 
-        System.out.print("Elija su genero:\nMasculino ingrese m\nFemenino ingrese f\n");
+        showString("Elija su genero:\nMasculino ingrese m\nFemenino ingrese f\n");
         String sexo = lector.next();
         System.out.println();
-        while (sexo != "m" && sexo != "f") {
-            System.out.print("### Error ###\nIngrese el tipo de genero correcto\n\n");
-            System.out.print("Elija su genero:\nMasculino ingrese m\nFemenino ingrese f\n");
+        while (!sexo.equals("m") && !sexo.equals("f")) {
+            showString("### Error ###\nIngrese el tipo de genero correcto\n\n");
+            showString("Elija su genero:\nMasculino ingrese m\nFemenino ingrese f\n");
             sexo = lector.next();
             System.out.println(sexo);
         }
 
-        System.out.print("Ingrese la altura (decimales separados con \".\")");
+        showString("Ingrese la altura (decimales separados con \".\"): ");
         String altura = lector.next();
         System.out.println();
-        while (altura == "") {
-            System.out.print("### Error ###\nLa altura no puede estar vaciá\n\n");
-            System.out.print("Ingrese la altura (decimales separados con \".\")");
+        while (altura.isEmpty()) {
+            showString("### Error ###\nLa altura no puede estar vaciá\n\n");
+            showString("Ingrese la altura (decimales separados con \".\")");
             altura = lector.next();
             System.out.println();
         }
+
+
 
         return new SocioDTO(
                 email,
@@ -153,37 +162,177 @@ public class Pantallas {
 
     //          Pantallas cuando el usuario esta logeado            //
     public static void homeUsuario(SocioDTO socioLogeado) {
-        rutinaControlador = RutinaControlador.getInstance();
+        RutinaControlador rutinaControlador = RutinaControlador.getInstance();
+        
         System.out.println("Bienvenido "+socioLogeado.getNombre()+" "+socioLogeado.getApellido()+"\n");
+
+        if (!socioControlador.tieneObjetivo(socioLogeado)) {
+            socioControlador.pesarse(socioLogeado);
+            elegirObjetivo(socioLogeado);
+        }
+
         int respuesta = 0;
-        while (respuesta != 1) {
-            System.out.println("Menu:\n1.- Cerrar Sección\n2.- Empezar entrenamiento del día");
-            System.out.println("3.- Ver Rutina\n4.- Ver logros");
+        while (respuesta != 8) {
+            System.out.println("===== MENU GIMNASIO =====");
+            System.out.println("1. Empezar Entrenamiento del Dia");
+            System.out.println("2. Ver Rutina");
+            System.out.println("3. Pesarse");
+            System.out.println("4. Ver Progreso");
+            System.out.println("5. Cambiar Objetivo");
+            System.out.println("6. Ver Logros");
+            System.out.println("7. Reforzar Rutina");
+            System.out.println("8. Cerrar Sesion");
+            System.out.println("============================");
+            showString("Seleccione una opción (1-7): ");
             respuesta = lector.nextInt();
             System.out.println();
-            while (respuesta != 1 && respuesta != 2 && respuesta != 3 && respuesta != 4) {
-                System.out.println("### Error en el ingreso de datos ###\n");
-                System.out.println("Menu:\n1.- Cerrar Sección\n2.- Empezar entrenamiento del día");
-                System.out.println("3.- Ver Rutina\n4.- Ver logros");
+            while (respuesta != 1 && respuesta != 2 && respuesta != 3 && respuesta != 4 && respuesta != 5 &&
+            respuesta != 6 && respuesta != 7 && respuesta != 8 ) {
+                System.out.println("### Por favor ingrese un valor valido ###\n");
                 respuesta = lector.nextInt();
             }
             if (respuesta == 1) {
-                System.out.println("¿Estas seguro?\n1.- si\n0.- no");
-                respuesta = lector.nextInt();
-            }else if(respuesta == 2) {
                 EntrenamientoDTO entrenamientoDTO = rutinaControlador.comenzarEntremaniento(socioLogeado);
-
-            }else if(respuesta == 3) {
-
-            }else {
+                EntrenamientoDTO entrenamientoFinalizado = pantallaEntrenamientoDelDia(entrenamientoDTO);
+                socioControlador.finalizarEntrenamiento(socioLogeado,entrenamientoFinalizado);
+            } else if(respuesta == 2) {
+                RutinaDTO rutinaDTO = socioControlador.getRutinaDelSocio(socioLogeado);
+                pantallaRutina(rutinaDTO);
+            } else if(respuesta == 3) {
+                socioControlador.pesarse(socioLogeado);
+            } else if(respuesta == 4) {
+                socioControlador.verProgreso(socioLogeado);
+                
+                System.out.println("Presione enter para continuar");
+                lector.next();
+            } else if (respuesta == 5) {
+                elegirObjetivo(socioLogeado);
+            } else if (respuesta == 6) {
+                ArrayList<LogroDTO> logrosSocio = socioControlador.getlogrosSocio(socioLogeado);
+                System.out.println("Aqui se muestran tus Trofeos");
+                System.out.println("============================");
+                for(LogroDTO logroDTO : logrosSocio) {
+                    System.out.println("Trofeo: " + logroDTO.getNombre());
+                }
+                System.out.println("============================");
+                System.out.println("Presione enter para continuar");
+                lector.next();
+            } else if (respuesta == 7) {
+                System.out.println("Ingrese cuanto desea reforzar la rutina, debe ser en kg (los decimales con . )\n");
+                String refuerzo = lector.next();
+                while (Double.parseDouble(refuerzo) < 0) {
+                    System.out.println("### Error el refuerzo debe ser positivo ###");
+                    
+                }
 
             }
         }
     }
 
-    private EntrenamientoDTO pantallaEntrenamientoDelDia(EntrenamientoDTO entrenamientoDTO) {
+    private static EntrenamientoDTO pantallaEntrenamientoDelDia(EntrenamientoDTO entrenamientoDTO) {
+        limpiarPantalla();
+        System.out.println("Entrenamiento del día: " + entrenamientoDTO.getDiaRutina());
+        System.out.println("Lista de ejercicios:");
 
-        return null;
+        // Recorremos la lista de ejercicios y mostramos los detalles de cada uno
+        for (EjercicioDTO ejercicio : entrenamientoDTO.getEjercicios()) {
+            System.out.println("======================================");
+            System.out.println("Descripción: " + ejercicio.getDescripcion());
+            System.out.println("Cantidad de Series: " + ejercicio.getCantidadSeries());
+            System.out.println("Repeticiones: " + ejercicio.getRepeticiones());
+            System.out.println("Peso: " + ejercicio.getPeso());
+            System.out.println("Video Ilustrativo: " + ejercicio.getVideoIlustrativo());
+            System.out.println("======================================\n");
+            System.out.println("A continuacion ingrese los datos del ejercicio realizado");
+
+            showString("Formulario de Ejercicio: \n\n");
+
+            // Cantidad de Series
+            showString("Cantidad de Series: ");
+            String cantidadSeries = lector.next();
+            System.out.println();
+            while (cantidadSeries.isEmpty()) {
+                showString("### Error ###\nLa Cantidad de Series no puede estar vacía\n\n");
+                showString("Cantidad de Series: ");
+                cantidadSeries = lector.next();
+                System.out.println();
+            }
+
+            // Repeticiones
+            showString("Repeticiones: ");
+            String repeticiones = lector.next();
+            System.out.println();
+            while (repeticiones.isEmpty()) {
+                showString("### Error ###\nLas Repeticiones no pueden estar vacías\n\n");
+                showString("Repeticiones: ");
+                repeticiones = lector.next();
+                System.out.println();
+            }
+
+            // Peso
+            showString("Peso: ");
+            String peso = lector.next();
+            System.out.println();
+            while (peso.isEmpty()) {
+                showString("### Error ###\nEl Peso no puede estar vacío\n\n");
+                showString("Peso: ");
+                peso = lector.next();
+                System.out.println();
+            }
+
+            EjercicioDTO ejercicioFinalizado = ejercicio.copiar();
+            ejercicioFinalizado.setCantidadSeries(cantidadSeries);
+            ejercicioFinalizado.setRepeticiones(repeticiones);
+            ejercicioFinalizado.setPeso(peso);
+
+            entrenamientoDTO.getEjerciciosFinalizados().add(ejercicioFinalizado);
+        }
+        return entrenamientoDTO;
     }
 
+    private static void pantallaRutina(RutinaDTO rutinaDTO) {
+        limpiarPantalla();
+        System.out.println("Rutina desde " + rutinaDTO.fechaInicio() + " hasta " + rutinaDTO.fechaFin());
+        System.out.println("======================================");
+
+        // Recorremos cada entrenamiento de la rutina
+        for (EntrenamientoDTO entrenamiento : rutinaDTO.rutina()) {
+            System.out.println("Entrenamiento del día: " + entrenamiento.getDiaRutina());
+            System.out.println("Ejercicios:");
+
+            // Recorremos cada ejercicio del entrenamiento y mostramos solo la descripción
+            for (EjercicioDTO ejercicio : entrenamiento.getEjercicios()) {
+                System.out.println("- Descripción: " + ejercicio.getDescripcion());
+            }
+
+            System.out.println("======================================\n");
+        }
+        System.out.println("Presione enter para continuar");
+        lector.next();
+    }
+
+    private static void elegirObjetivo(SocioDTO socioDTO){
+        System.out.println("===== Cambiar Objetivo =====");
+        System.out.println("1. Bajar de peso");
+        System.out.println("2. Mantener Figura");
+        System.out.println("3. Tonificar");
+        System.out.println("============================");
+        showString("Seleccione una opción (1-3): ");
+        int opcion = lector.nextInt();
+        if (opcion == 1){
+            System.out.println("Has seleccionado: Bajar de peso");
+            socioDTO.setObjetivo("1");
+        } else if (opcion == 2) {
+            System.out.println("Has seleccionado: Mantener Figura");
+            socioDTO.setObjetivo("2");
+        } else if (opcion == 3) {
+            System.out.println("Has seleccionado: Tonificar");
+            socioDTO.setObjetivo("3");
+        }
+        socioControlador.cambiarObjetivo(socioDTO);
+    }
+    public static EjercicioDTO pantallaCrearEjercicio(){
+        EjercicioDTO ejercicio = null;
+        return ejercicio;
+    }
 }

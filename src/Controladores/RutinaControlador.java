@@ -2,6 +2,7 @@ package Controladores;
 
 import DTO.EjercicioDTO;
 import DTO.EntrenamientoDTO;
+import DTO.RutinaDTO;
 import DTO.SocioDTO;
 import Modelo.Objetivo.Objetivo;
 import Modelo.Rutina.Ejercicio;
@@ -11,14 +12,14 @@ import Modelo.Rutina.Rutina;
 import Modelo.Socio;
 import Enum.GrupoMuscular;
 import Enum.NivelExigencia;
+import baseDatos.BD;
 
 
 import java.util.ArrayList;
 
 public final class RutinaControlador {
-
+    private static final BD base = BD.getInstancia();
     private static RutinaControlador instance;
-    private ArrayList<Ejercicio> ejerciciosExistentes;
 
     private RutinaControlador() {
     }
@@ -31,14 +32,14 @@ public final class RutinaControlador {
     }
 
     public ArrayList<Ejercicio> elegirEjercicios(Objetivo objetivo) {
-        return objetivo.filtrarEjercicios(ejerciciosExistentes);
+        return objetivo.filtrarEjercicios(base.getEjercicios());
     }
 
     public Rutina createRutina(Objetivo objetivo) {
         return new Rutina(objetivo);
     }
 
-    public void reforzarRutina(int refuerzo, Rutina rutina) {
+    public void reforzarRutina(double refuerzo, Rutina rutina) {
         ArrayList<Entrenamiento> entrenamientos = rutina.getEntrenamientos();
         for (Entrenamiento entrnamiento : entrenamientos) {
             ArrayList<Ejercicio> ejercicios = entrnamiento.getEjercicios();
@@ -57,7 +58,13 @@ public final class RutinaControlador {
 
     public void finalizarUnEntrenamiento(EntrenamientoDTO entrenamientoDTO, Socio socio) {
         Entrenamiento entrenamientoCompletado = this.entrenamientoToModel(entrenamientoDTO, socio);
-        //update rutina original?
+        Rutina rutina = socio.getObjetivo().getRutina();
+        ArrayList<Entrenamiento> entrenamientos= rutina.getEntrenamientos();
+        for (Entrenamiento entrenamiento : entrenamientos) {
+            if(entrenamiento.getDiaRutina() == entrenamientoCompletado.getDiaRutina()){
+                entrenamiento.setEjerciciosFinalizados(entrenamientoCompletado.getEjerciciosFinalizados());
+            }
+        }
     }
 
     public EntrenamientoDTO comenzarEntremaniento(SocioDTO socioDTO) {
@@ -67,27 +74,15 @@ public final class RutinaControlador {
     }
 
     /// ABM Ejercicio
-//    public void crearEjercicio(EjercicioDTO ejercicioDTO) {
-//        Ejercicio ejercicio = new Ejercicio(ejercicioDTO.getDescripcion(), ejercicioDTO.getGrupoMuscular(), ejercicioDTO.getNivelAerobico(),
-//                ejercicioDTO.getNivelExigencia(), ejercicioDTO.getVideoIlustrativo());
-//        ejerciciosExistentes.add(ejercicio);
-//    }
-
-    //todo es debatible si quiero editar un ejercicio que ya conozco con el dto o si lo tengo que buscar pero fue.
-//    public void modificarEjercicio(Ejercicio ejercicio, EjercicioDTO ejercicioDTO) {
-//        ejercicio.setDescripcion(ejercicioDTO.getDescripcion());
-//        ejercicio.setGrupoMuscular(ejercicioDTO.getGrupoMuscular());
-//        ejercicio.setNivelAerobico(ejercicioDTO.getNivelAerobico());
-//        ejercicio.setNivelExigencia(ejercicioDTO.getNivelExigencia());
-//        ejercicio.setVideoIlustrativo(ejercicioDTO.getVideoIlustrativo());
-//    }
-    public void eliminarEjercicio(Ejercicio ejercicio) {
-        ejerciciosExistentes.remove(ejercicio);
+    public void crearEjercicio(EjercicioDTO ejercicioDTO) {
+        BD baseDatos = BD.getInstancia();
+        Ejercicio ejercicio = this.ejercicioFromDTO(ejercicioDTO);
+        baseDatos.getEjercicios().add(ejercicio);
     }
 
-    public ArrayList<Ejercicio> getEjerciciosExistentes() {
-        return ejerciciosExistentes;
-    }
+    public void modificarEjercicio(Ejercicio ejercicio, EjercicioDTO ejercicioDTO) {}
+
+    public void eliminarEjercicio(Ejercicio ejercicio) {}
 
     public EjercicioDTO toString(Ejercicio ejercicio) {
         return new EjercicioDTO(ejercicio.getDescripcion(), String.valueOf(ejercicio.getCantidadSeries()),
@@ -95,16 +90,16 @@ public final class RutinaControlador {
                 String.valueOf(ejercicio.getNivelAerobico()), ejercicio.getNivelExigencia().toString(), ejercicio.getLinkVideo());
     }
 
-    public EjercicioRealizado ejercicioRealizadoToModel(EjercicioDTO ejercicioDTO) {
-        return new EjercicioRealizado(Integer.valueOf(ejercicioDTO.getCantidadSeries()),
-                Integer.parseInt(ejercicioDTO.getRepeticiones()), Double.valueOf(ejercicioDTO.getPeso()),
-                this.ejercicioFromDTO(ejercicioDTO));
-    }
-
     public Ejercicio ejercicioFromDTO(EjercicioDTO ejercicioDTO) {
         return new Ejercicio(ejercicioDTO.getDescripcion(), GrupoMuscular.valueOf(ejercicioDTO.getGrupoMuscular()),
                 Integer.parseInt(ejercicioDTO.getNivelAerobico()), NivelExigencia.valueOf(ejercicioDTO.getNivelExigencia()),
                 ejercicioDTO.getVideoIlustrativo());
+    }
+
+    public EjercicioRealizado ejercicioRealizadoToModel(EjercicioDTO ejercicioDTO) {
+        return new EjercicioRealizado(Integer.valueOf(ejercicioDTO.getCantidadSeries()),
+                Integer.parseInt(ejercicioDTO.getRepeticiones()), Double.valueOf(ejercicioDTO.getPeso()),
+                this.ejercicioFromDTO(ejercicioDTO));
     }
 
     public EntrenamientoDTO entrenamientoToDTO(Entrenamiento entrenamiento) {
@@ -123,5 +118,13 @@ public final class RutinaControlador {
             entrenamientoAModificar.getEjerciciosFinalizados().add(this.ejercicioRealizadoToModel(ejercicioDTO));
         }
         return entrenamientoAModificar;
+    }
+
+    public RutinaDTO rutinaToDTO(Rutina rutina){
+        ArrayList<EntrenamientoDTO> entrenamientosDTO = new ArrayList<>();
+        for (Entrenamiento entrenamiento : rutina.getEntrenamientos()) {
+            entrenamientosDTO.add(this.entrenamientoToDTO(entrenamiento));
+        }
+        return new RutinaDTO(entrenamientosDTO, rutina.getFechaInicio().toString(), rutina.getFechaFin().toString());
     }
 }

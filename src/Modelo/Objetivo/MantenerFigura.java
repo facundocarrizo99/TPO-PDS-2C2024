@@ -17,6 +17,8 @@ public class MantenerFigura extends Objetivo {
         this.valorConfigurable = valorConfigurable;
         this.pesoInicial = pesoInicial;
     }
+    public int getValorConfigurable() { return valorConfigurable; }
+    public Peso getPesoInicial() { return pesoInicial; }
 
     @Override
     public boolean seEstaCumpliendo(Socio socio) {

@@ -1,6 +1,7 @@
 package DTO;
 
 public class SocioDTO {
+	public int getValorConfigurable;
 	private String mail;
     private String clave;
     private String nombre;
@@ -11,7 +12,9 @@ public class SocioDTO {
     private String peso;
     private String altura;
     private String ID;
-    
+    private String objetivo;
+	private String valorConfigurable;
+
 	public SocioDTO(String mail, String clave, String nombre, String apellido, String edad, String fechaNacimiento,
 			String sexo, String altura, String ID) {
 		this.mail = mail;
@@ -69,4 +72,15 @@ public class SocioDTO {
 		return ID;
 	}
 
+	public void setObjetivo(String objetivo){
+		this.objetivo = objetivo;
+	}
+
+	public String getObjetivo(){
+		return objetivo;
+	}
+	public String getValorConfigurable() { return valorConfigurable; }
+	public void setValorConfigurable(String valorConfigurable) {
+		this.valorConfigurable = valorConfigurable;
+	}
 }

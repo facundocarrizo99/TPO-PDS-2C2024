@@ -1,10 +1,10 @@
 package Modelo;
 
-import DTO.LoginDTO;
 import Interfaeces.IAuth;
 import Interfaeces.IObservable;
 import Interfaeces.IObserver;
 import Modelo.Objetivo.Objetivo;
+import Modelo.Peso.BalanzaGim;
 import Modelo.Peso.IPesoAdapter;
 import Modelo.Peso.Peso;
 import Modelo.Trofeo.Trofeo;
@@ -23,16 +23,16 @@ public class Socio implements IObservable {
     private int edad;
     private Date fechaNacimiento;
     private String sexo;
-    private ArrayList<Peso> pesos;
+    private ArrayList<Peso> pesos = new ArrayList<Peso>();
     private double alturaCM;
     private Objetivo objetivo;
     private int ID;
     private boolean baja;
-    private IPesoAdapter balanza;
+    private IPesoAdapter balanza = new BalanzaGim();
     private IAuth auth;
     private int token;
-    private ArrayList<Trofeo> trofeos;
-    private ArrayList<IObserver> observers;
+    private ArrayList<Trofeo> trofeos = new ArrayList<Trofeo>();
+    private ArrayList<IObserver> observers = new ArrayList<IObserver>();
 
     public void pesarse() {
         Peso nuevoPeso = balanza.obtenerPeso();
@@ -52,9 +52,6 @@ public class Socio implements IObservable {
         this.alturaCM = altura;
         this.ID = ID;
         this.baja = false;
-        pesos = new ArrayList<Peso>();
-        this.trofeos = new ArrayList<Trofeo>();
-        this.observers = new ArrayList<IObserver>();
 
         NotificadorPush notificadorPush = new NotificadorPush();
 
@@ -66,40 +63,6 @@ public class Socio implements IObservable {
 
         TrofeoConstancia trofeoConstancia = new TrofeoConstancia(notificadorPush);
         this.agregarO(trofeoConstancia);
-    }
-
-    // TODO
-    public void mostrarProgreso() {
-
-    }
-
-    public LoginDTO auth(String email, String clave) {
-        LoginDTO respuesta;
-        if (this.mail == email) {
-            if (this.clave == clave) {
-                respuesta = new LoginDTO(
-                        String.valueOf(this.ID),
-                        "ok",
-                        "",
-                        ""
-                );
-            } else {
-                respuesta = new LoginDTO(
-                        "",
-                        "claveInvalida",
-                        "",
-                        ""
-                );
-            }
-        } else {
-            respuesta = new LoginDTO(
-                    "",
-                    "correoInvalido",
-                    "",
-                    ""
-            );
-        }
-        return respuesta;
     }
 
     public double getAlturaCM() {

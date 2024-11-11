@@ -5,7 +5,6 @@ import Interfaeces.IObservable;
 import Interfaeces.IObserver;
 import Modelo.Objetivo.Objetivo;
 import Enum.GrupoMuscular;
-import Modelo.Trofeo.TrofeoConstancia;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,11 +41,10 @@ public class Rutina implements IObservable {
 
     ///Solo generamos Entrnamientos por semana pero se repiten cada semana entonces genero 5 entrenamientos y los muestro las 4 semanas del mes
     public void crearNEntranamientos(Objetivo objetivo){
-        ArrayList<Ejercicio> ejerciciosDisponibles = new ArrayList<>();
+        ArrayList<Ejercicio> ejerciciosDisponibles;
         for (int i = 0; i < 20; i++) {
             Entrenamiento temp = new Entrenamiento(LocalDate.now().plusDays(i));
             ejerciciosDisponibles = RutinaControlador.getInstance().elegirEjercicios(objetivo);
-            //todo: falta asignarle las repeticiones y peso por defecto a los ejercicios
             this.ejerciciosParaEntrenamiento(temp, ejerciciosDisponibles, i);
             this.agregarEntramiento(temp);
         }
@@ -55,23 +53,19 @@ public class Rutina implements IObservable {
     public void ejerciciosParaEntrenamiento(Entrenamiento entrenamiento, ArrayList<Ejercicio> ejerciciosDisponibles, Integer pos){
         ArrayList<Ejercicio> resultado = new ArrayList<>();
         int val = pos % 5;
-        switch (val){
-            case 0:
-                resultado = (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.PECHO)).toList();
-                break;
-            case 1:
-                resultado = (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.ESPALDA)).toList();
-                break;
-            case 2:
-                resultado = (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.HOMBROS)).toList();
-                break;
-            case 3:
-                resultado = (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.PIERNAS)).toList();
-                break;
-            case 4:
-                resultado = (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.BRAZOS)).toList();
-                break;
-        }
+        resultado = switch (val) {
+            case 0 ->
+                    (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.PECHO)).toList();
+            case 1 ->
+                    (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.ESPALDA)).toList();
+            case 2 ->
+                    (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.HOMBROS)).toList();
+            case 3 ->
+                    (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.PIERNAS)).toList();
+            case 4 ->
+                    (ArrayList<Ejercicio>) ejerciciosDisponibles.stream().filter(ejercicio -> ejercicio.getGrupoMuscular().equals(GrupoMuscular.BRAZOS)).toList();
+            default -> resultado;
+        };
         entrenamiento.setEjercicios(resultado);
     }
 
@@ -106,4 +100,5 @@ public class Rutina implements IObservable {
     public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
+
 }

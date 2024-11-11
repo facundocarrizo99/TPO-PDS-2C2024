@@ -84,4 +84,17 @@ public class EjercicioDTO {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public EjercicioDTO copiar() {
+        return new EjercicioDTO(
+                this.grupoMuscular,
+                this.cantidadSeries,
+                this.repeticiones,
+                this.peso,
+                this.nivelAerobico,
+                this.nivelExigencia,
+                this.videoIlustrativo,
+                this.descripcion
+        );
+    }
 }
