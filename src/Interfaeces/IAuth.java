@@ -1,7 +1,7 @@
 package Interfaeces;
 
-import Modelo.Socio;
+import DTO.LoginDTO;
 
 public interface IAuth {
-    int autenticarse();
+    LoginDTO autenticarse(LoginDTO datosLogin);
 }

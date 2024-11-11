@@ -1,33 +1,47 @@
 package Modelo.Objetivo;
 
 import Enum.NivelExigencia;
+import Modelo.Peso.Peso;
 import Modelo.Rutina.Ejercicio;
-import Modelo.Rutina.Rutina;
+import Modelo.Socio;
 
 import java.util.ArrayList;
 
-public class TonificarCuerpo extends Objetivo{
-	
-	private double masaMuscularIdeal;
-	private double porcentajeGrasaIdeal;
+public class TonificarCuerpo extends Objetivo {
 
-	public TonificarCuerpo(Rutina rutina, boolean estadoObjetivo, EstrategiaObjetivo estrategia, double masaMuscularIdeal, double porcentajeGrasaIdeal) {
-		super(rutina, estadoObjetivo, estrategia);
-		this.masaMuscularIdeal = masaMuscularIdeal;
-		this.porcentajeGrasaIdeal = porcentajeGrasaIdeal;
-	}
+    private double masaMuscularIdeal;
+    private double porcentajeGrasaIdeal;
 
-	@Override
-	public ArrayList<Ejercicio> filtrarEjercicios(ArrayList<Ejercicio> lista){
-		ArrayList<Ejercicio> listaFiltrada = new ArrayList<>();
-		for (Ejercicio ejercicio : lista){
-			if (ejercicio.getNivelAerobico() <= 4 && ejercicio.getNivelExigencia() == NivelExigencia.ALTO){
-				listaFiltrada.add(ejercicio);
-			}
-		}
-		return listaFiltrada;
-	}
+    public TonificarCuerpo() {
+        this.generarRutina();
+        this.masaMuscularIdeal = 80;
+        this.porcentajeGrasaIdeal = 15;
+    }
 
-	
-    
+    @Override
+    public boolean seEstaCumpliendo(Socio socio) {
+        boolean res = false;
+        Peso ultimo = socio.getPesos().getLast();
+        if (ultimo.getMasaMuscularKG() >= this.masaMuscularIdeal &&
+                ultimo.getPorcentajeGrasa() <= this.porcentajeGrasaIdeal) {
+            res = true;
+        }
+        return res;
+    }
+
+    @Override
+    public ArrayList<Ejercicio> filtrarEjercicios(ArrayList<Ejercicio> lista) {
+        ArrayList<Ejercicio> listaFiltrada = new ArrayList<>();
+        for (Ejercicio ejercicio : lista) {
+            if (ejercicio.getNivelAerobico() <= 4 && ejercicio.getNivelExigencia() == NivelExigencia.ALTO) {
+                ejercicio.setRepeticiones(8);
+                ejercicio.setCantidadSeries(4);
+                ejercicio.setPeso(20);
+                listaFiltrada.add(ejercicio);
+            }
+        }
+        return listaFiltrada;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package DTO;
 
 public class SocioDTO {
+	public int getValorConfigurable;
 	private String mail;
     private String clave;
     private String nombre;
@@ -11,7 +12,9 @@ public class SocioDTO {
     private String peso;
     private String altura;
     private String ID;
-    
+    private String objetivo;
+	private String valorConfigurable;
+
 	public SocioDTO(String mail, String clave, String nombre, String apellido, String edad, String fechaNacimiento,
 			String sexo, String altura, String ID) {
 		this.mail = mail;
@@ -29,56 +32,28 @@ public class SocioDTO {
 		return mail;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
 	public String getClave() {
 		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public String getApellido() {
 		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
 	}
 
 	public String getEdad() {
 		return edad;
 	}
 
-	public void setEdad(String edad) {
-		this.edad = edad;
-	}
-
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public String getSexo() {
 		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
 	}
 
 	public String getPeso() {
@@ -93,17 +68,21 @@ public class SocioDTO {
 		return altura;
 	}
 
-	public void setAltura(String altura) {
-		this.altura = altura;
-	}
-
 	public String getID() {
 		return ID;
 	}
 
-	public void setID(String iD) {
-		ID = iD;
+	public void setObjetivo(String objetivo){
+		this.objetivo = objetivo;
 	}
-    
-    
+
+	public String getObjetivo(){
+		return objetivo;
+	}
+
+	public String getValorConfigurable() { return valorConfigurable; }
+
+	public void setValorConfigurable(String valorConfigurable) {
+		this.valorConfigurable = valorConfigurable;
+	}
 }
